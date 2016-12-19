@@ -1,0 +1,11 @@
+index:
+    path:     /
+    defaults: { _controller: pslieuxBundle:lieu:index }
+
+list:
+    path:     /list
+    defaults: { _controller: pslieuxBundle:lieu:list }
+
+listFilter:
+    path:     /list/{categorie}
+    defaults: { _controller: pslieuxBundle:lieu:listFilter }

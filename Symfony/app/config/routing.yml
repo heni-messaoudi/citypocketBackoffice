@@ -1,0 +1,3 @@
+pslieux:
+    resource: "@pslieuxBundle/Resources/config/routing.yml"
+    prefix:   /

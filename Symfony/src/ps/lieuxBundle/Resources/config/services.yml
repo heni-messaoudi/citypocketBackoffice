@@ -1,0 +1,4 @@
+services:
+#    pslieux.example:
+#        class: ps\lieuxBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
