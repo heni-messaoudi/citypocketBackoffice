@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/** @Entity */
+/** @EntityControlers */
 class User implements UserInterface
 {
     /** @Id @Column(type="integer") */

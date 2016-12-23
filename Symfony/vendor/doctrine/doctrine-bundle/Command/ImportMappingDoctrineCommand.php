@@ -79,7 +79,7 @@ EOT
         $destPath = $bundle->getPath();
         $type = $input->getArgument('mapping-type') ? $input->getArgument('mapping-type') : 'xml';
         if ('annotation' === $type) {
-            $destPath .= '/Entity';
+            $destPath .= '/EntitysControlers';
         } else {
             $destPath .= '/Resources/config/doctrine';
         }
@@ -112,7 +112,7 @@ EOT
             $output->writeln(sprintf('Importing mapping information from "<info>%s</info>" entity manager', $emName));
             foreach ($metadata as $class) {
                 $className = $class->name;
-                $class->name = $bundle->getNamespace().'\\Entity\\'.$className;
+                $class->name = $bundle->getNamespace().'\\EntitysControlers\\'.$className;
                 if ('annotation' === $type) {
                     $path = $destPath.'/'.str_replace('\\', '.', $className).'.php';
                 } else {

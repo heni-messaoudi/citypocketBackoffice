@@ -22,9 +22,9 @@ use InvalidArgumentException;
 use Psr\Http\Message\StreamInterface;
 
 /**
- * A Datastore Entity
+ * A Datastore EntitysControlers
  *
- * Entity implements PHP's [ArrayAccess](http://php.net/arrayaccess), allowing
+ * EntitysControlers implements PHP's [ArrayAccess](http://php.net/arrayaccess), allowing
  * access via the array syntax (example below).
  *
  * Properties are mapped automatically to their corresponding Datastore value
@@ -35,7 +35,7 @@ use Psr\Http\Message\StreamInterface;
  * | `\DateTimeInterface`                       | `timestampValue`                     |
  * | {@see Google\Cloud\Datastore\Key}          | `keyValue`                           |
  * | {@see Google\Cloud\Datastore\GeoPoint}     | `geoPointValue`                      |
- * | {@see Google\Cloud\Datastore\Entity}       | `entityValue`                        |
+ * | {@see Google\Cloud\Datastore\EntitysControlers}       | `entityValue`                        |
  * | {@see Google\Cloud\Datastore\Blob}         | `blobValue`                          |
  * | {@see Google\Cloud\Int64}                  | `integerValue`                       |
  * | Associative Array                          | `entityValue` (No Key)               |
@@ -85,17 +85,17 @@ class Entity implements ArrayAccess
     private $options;
 
     /**
-     * @param Key $key The Entity's Key, defining its unique identifier.
+     * @param Key $key The EntitysControlers's Key, defining its unique identifier.
      * @param array $entity [optional] The entity body.
      * @param array $options [optional] {
      *     Configuration Options
      *
      *     @type string $cursor Set only when the entity is obtained by a query
      *           result. If set, the entity cursor can be retrieved from
-     *           {@see Google\Cloud\Datastore\Entity::cursor()}.
+     *           {@see Google\Cloud\Datastore\EntitysControlers::cursor()}.
      *     @type string $baseVersion Set only when the entity is obtained by a
      *           query result. If set, the entity cursor can be retrieved from
-     *           {@see Google\Cloud\Datastore\Entity::baseVersion()}.
+     *           {@see Google\Cloud\Datastore\EntitysControlers::baseVersion()}.
      *     @type array $excludeFromIndexes A list of entity keys to exclude from
      *           datastore indexes.
      *     @type array $meanings A list of meaning values for entity properties.
@@ -154,7 +154,7 @@ class Entity implements ArrayAccess
     }
 
     /**
-     * Get the Entity Key
+     * Get the EntitysControlers Key
      *
      * Example:
      * ```

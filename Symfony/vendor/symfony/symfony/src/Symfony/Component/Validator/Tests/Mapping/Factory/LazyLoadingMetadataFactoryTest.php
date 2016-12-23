@@ -47,27 +47,27 @@ class LazyLoadingMetadataFactoryTest extends \PHPUnit_Framework_TestCase
                 'Default',
                 'EntityInterfaceA',
                 'EntityParent',
-                'Entity',
+                'EntitysControlers',
             ))),
             new ConstraintA(array('groups' => array(
                 'Default',
                 'EntityParent',
-                'Entity',
+                'EntitysControlers',
             ))),
             new ConstraintA(array('groups' => array(
                 'Default',
                 'EntityParentInterface',
                 'EntityInterfaceB',
-                'Entity',
+                'EntitysControlers',
             ))),
             new ConstraintA(array('groups' => array(
                 'Default',
                 'EntityInterfaceB',
-                'Entity',
+                'EntitysControlers',
             ))),
             new ConstraintA(array('groups' => array(
                 'Default',
-                'Entity',
+                'EntitysControlers',
             ))),
         );
 

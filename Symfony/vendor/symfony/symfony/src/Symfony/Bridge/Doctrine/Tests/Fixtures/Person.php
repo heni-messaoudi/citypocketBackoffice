@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\InheritanceType;
 
 /**
- * @Entity
+ * @EntityControlers
  * @InheritanceType("SINGLE_TABLE")
  * @DiscriminatorColumn(name="discr", type="string")
  * @DiscriminatorMap({"person" = "Person", "employee" = "Employee"})

@@ -556,7 +556,7 @@ class SecurityExtension extends Extension
     {
         $name = $this->getUserProviderId(strtolower($name));
 
-        // Doctrine Entity and In-memory DAO provider are managed by factories
+        // Doctrine EntitysControlers and In-memory DAO provider are managed by factories
         foreach ($this->userProviderFactories as $factory) {
             $key = str_replace('-', '_', $factory->getKey());
 

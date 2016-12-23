@@ -14,7 +14,7 @@ namespace Symfony\Bridge\Doctrine\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Constraint for the Unique Entity validator.
+ * Constraint for the Unique EntityControlers validator.
  *
  * @Annotation
  * @Target({"CLASS", "ANNOTATION"})

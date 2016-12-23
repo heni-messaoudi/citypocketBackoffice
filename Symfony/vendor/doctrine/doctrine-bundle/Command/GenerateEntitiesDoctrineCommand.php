@@ -54,23 +54,23 @@ You have to limit generation of entities:
 * To a single entity:
 
   <info>php %command.full_name% MyCustomBundle:User</info>
-  <info>php %command.full_name% MyCustomBundle/Entity/User</info>
+  <info>php %command.full_name% MyCustomBundle/EntitysControlers/User</info>
 
 * To a namespace
 
-  <info>php %command.full_name% MyCustomBundle/Entity</info>
+  <info>php %command.full_name% MyCustomBundle/EntitysControlers</info>
 
 If the entities are not stored in a bundle, and if the classes do not exist,
 the command has no way to guess where they should be generated. In this case,
 you must provide the <comment>--path</comment> option:
 
-  <info>php %command.full_name% Blog/Entity --path=src/</info>
+  <info>php %command.full_name% Blog/EntitysControlers --path=src/</info>
 
 By default, the unmodified version of each entity is backed up and saved
 (e.g. Product.php~). To prevent this task from creating the backup file,
 pass the <comment>--no-backup</comment> option:
 
-  <info>php %command.full_name% Blog/Entity --no-backup</info>
+  <info>php %command.full_name% Blog/EntitysControlers --no-backup</info>
 
 <error>Important:</error> Even if you specified Inheritance options in your
 XML or YAML Mapping files the generator cannot generate the base and

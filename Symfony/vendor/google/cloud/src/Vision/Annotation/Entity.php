@@ -64,7 +64,7 @@ use Google\Cloud\CallTrait;
  *     @return string
  * }
  * @method description() {
- *     Entity textual description, expressed in its locale language.
+ *     EntityControlers textual description, expressed in its locale language.
  *
  *     Example:
  *     ```

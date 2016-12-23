@@ -218,7 +218,7 @@ class DoctrineParamConverter implements ParamConverterInterface
 
         $options = $this->getOptions($configuration);
 
-        // Doctrine Entity?
+        // Doctrine EntitysControlers?
         $em = $this->getManager($options['entity_manager'], $configuration->getClass());
         if (null === $em) {
             return false;

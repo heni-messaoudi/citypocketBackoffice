@@ -445,7 +445,7 @@ abstract class AbstractDoctrineExtension extends Extension
     abstract protected function getObjectManagerElementName($name);
 
     /**
-     * Noun that describes the mapped objects such as Entity or Document.
+     * Noun that describes the mapped objects such as EntitysControlers or Document.
      *
      * Will be used for autodetection of persistent objects directory.
      *

@@ -51,7 +51,7 @@ class AnnotationLoaderTest extends \PHPUnit_Framework_TestCase
         $loader->loadClassMetadata($metadata);
 
         $expected = new ClassMetadata('Symfony\Component\Validator\Tests\Fixtures\Entity');
-        $expected->setGroupSequence(array('Foo', 'Entity'));
+        $expected->setGroupSequence(array('Foo', 'EntitysControlers'));
         $expected->addConstraint(new ConstraintA());
         $expected->addConstraint(new Callback(array('Symfony\Component\Validator\Tests\Fixtures\CallbackClass', 'callback')));
         $expected->addConstraint(new Callback(array('callback' => 'validateMe', 'payload' => 'foo')));
@@ -123,7 +123,7 @@ class AnnotationLoaderTest extends \PHPUnit_Framework_TestCase
         $expected = new ClassMetadata('Symfony\Component\Validator\Tests\Fixtures\Entity');
         $expected->mergeConstraints($expected_parent);
 
-        $expected->setGroupSequence(array('Foo', 'Entity'));
+        $expected->setGroupSequence(array('Foo', 'EntitysControlers'));
         $expected->addConstraint(new ConstraintA());
         $expected->addConstraint(new Callback(array('Symfony\Component\Validator\Tests\Fixtures\CallbackClass', 'callback')));
         $expected->addConstraint(new Callback(array('callback' => 'validateMe', 'payload' => 'foo')));

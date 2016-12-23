@@ -171,7 +171,7 @@ class Registry extends ManagerRegistry implements RegistryInterface
     /**
      * Gets the entity manager associated with a given class.
      *
-     * @param string $class A Doctrine Entity class name
+     * @param string $class A Doctrine EntitysControlers class name
      *
      * @return EntityManager|null
      *

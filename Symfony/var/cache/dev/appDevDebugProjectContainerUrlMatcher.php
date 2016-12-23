@@ -114,15 +114,29 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::indexAction',  '_route' => 'index',);
         }
 
-        if (0 === strpos($pathinfo, '/list')) {
-            // list
-            if ($pathinfo === '/list') {
-                return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::listAction',  '_route' => 'list',);
+        // list
+        if ($pathinfo === '/list') {
+            return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::listAction',  '_route' => 'list',);
+        }
+
+        if (0 === strpos($pathinfo, '/etab')) {
+            // get
+            if (preg_match('#^/etab/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'get')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::getAction',));
             }
 
-            // listFilter
-            if (preg_match('#^/list/(?P<categorie>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'listFilter')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::listFilterAction',));
+            // delete
+            if (0 === strpos($pathinfo, '/etab/delete') && preg_match('#^/etab/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'delete')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::deleteAction',));
+            }
+
+            // create
+            if (rtrim($pathinfo, '/') === '/etab/create') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'create');
+                }
+
+                return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::createAction',  '_route' => 'create',);
             }
 
         }

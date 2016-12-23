@@ -1051,7 +1051,7 @@ abstract class AbstractValidatorTest extends \PHPUnit_Framework_TestCase
             'groups' => 'Group 3',
         )));
 
-        $sequence = new GroupSequence(array('Group 1', 'Group 2', 'Group 3', 'Entity'));
+        $sequence = new GroupSequence(array('Group 1', 'Group 2', 'Group 3', 'EntitysControlers'));
         $this->metadata->setGroupSequence($sequence);
 
         $violations = $this->validate($entity, null, 'Default');
@@ -1085,7 +1085,7 @@ abstract class AbstractValidatorTest extends \PHPUnit_Framework_TestCase
             'groups' => 'Group 3',
         )));
 
-        $sequence = array('Group 1', 'Group 2', 'Group 3', 'Entity');
+        $sequence = array('Group 1', 'Group 2', 'Group 3', 'EntitysControlers');
         $this->metadata->setGroupSequence($sequence);
 
         $violations = $this->validate($entity, null, 'Default');
@@ -1117,7 +1117,7 @@ abstract class AbstractValidatorTest extends \PHPUnit_Framework_TestCase
             'groups' => 'Group 1',
         )));
 
-        $sequence = new GroupSequence(array('Group 1', 'Entity'));
+        $sequence = new GroupSequence(array('Group 1', 'EntitysControlers'));
         $this->metadata->setGroupSequence($sequence);
 
         $violations = $this->validate($entity, null, 'Default');
@@ -1147,7 +1147,7 @@ abstract class AbstractValidatorTest extends \PHPUnit_Framework_TestCase
             'groups' => 'Group 1',
         )));
 
-        $sequence = new GroupSequence(array('Group 1', 'Entity'));
+        $sequence = new GroupSequence(array('Group 1', 'EntitysControlers'));
         $this->metadata->setGroupSequence($sequence);
 
         $violations = $this->validate($entity, null, 'Other Group');
@@ -1201,26 +1201,26 @@ abstract class AbstractValidatorTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                'sequence' => new GroupSequence(array('Group 1', 'Group 2', 'Group 3', 'Entity')),
+                'sequence' => new GroupSequence(array('Group 1', 'Group 2', 'Group 3', 'EntitysControlers')),
                 'assertViolations' => array(
                     'Violation in Group 2',
                 ),
             ),
             array(
-                'sequence' => array('Group 1', 'Group 2', 'Group 3', 'Entity'),
+                'sequence' => array('Group 1', 'Group 2', 'Group 3', 'EntitysControlers'),
                 'assertViolations' => array(
                     'Violation in Group 2',
                 ),
             ),
             array(
-                'sequence' => new GroupSequence(array('Group 1', array('Group 2', 'Group 3'), 'Entity')),
+                'sequence' => new GroupSequence(array('Group 1', array('Group 2', 'Group 3'), 'EntitysControlers')),
                 'assertViolations' => array(
                     'Violation in Group 2',
                     'Violation in Group 3',
                 ),
             ),
             array(
-                'sequence' => array('Group 1', array('Group 2', 'Group 3'), 'Entity'),
+                'sequence' => array('Group 1', array('Group 2', 'Group 3'), 'EntitysControlers'),
                 'assertViolations' => array(
                     'Violation in Group 2',
                     'Violation in Group 3',

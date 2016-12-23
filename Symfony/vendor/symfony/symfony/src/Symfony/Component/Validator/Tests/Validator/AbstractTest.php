@@ -133,7 +133,7 @@ abstract class AbstractTest extends AbstractValidatorTest
             'groups' => 'Group 2',
         )));
 
-        $sequence = new GroupSequence(array('Group 1', 'Entity'));
+        $sequence = new GroupSequence(array('Group 1', 'EntitysControlers'));
         $violations = $this->validator->validate($entity, new Valid(), $sequence);
 
         /* @var ConstraintViolationInterface[] $violations */

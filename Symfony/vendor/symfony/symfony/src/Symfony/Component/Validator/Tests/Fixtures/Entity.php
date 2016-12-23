@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @Symfony\Component\Validator\Tests\Fixtures\ConstraintA
- * @Assert\GroupSequence({"Foo", "Entity"})
+ * @Assert\GroupSequence({"Foo", "EntityControlers"})
  * @Assert\Callback({"Symfony\Component\Validator\Tests\Fixtures\CallbackClass", "callback"})
  */
 class Entity extends EntityParent implements EntityInterfaceB

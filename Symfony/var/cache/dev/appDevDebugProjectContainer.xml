@@ -15,6 +15,7 @@
       <parameter key="SwiftmailerBundle">Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle</parameter>
       <parameter key="DoctrineBundle">Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
+      <parameter key="MisdPhoneNumberBundle">Misd\PhoneNumberBundle\MisdPhoneNumberBundle</parameter>
       <parameter key="pslieuxBundle">ps\lieuxBundle\pslieuxBundle</parameter>
       <parameter key="DebugBundle">Symfony\Bundle\DebugBundle\DebugBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
@@ -23,13 +24,13 @@
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
     <parameter key="kernel.container_class">appDevDebugProjectContainer</parameter>
-    <parameter key="database_host">127.0.0.1</parameter>
+    <parameter key="database_host">localhost</parameter>
     <parameter key="database_port">null</parameter>
-    <parameter key="database_name">symfony</parameter>
+    <parameter key="database_name">citypocket</parameter>
     <parameter key="database_user">root</parameter>
     <parameter key="database_password">null</parameter>
     <parameter key="mailer_transport">smtp</parameter>
-    <parameter key="mailer_host">127.0.0.1</parameter>
+    <parameter key="mailer_host">localhost</parameter>
     <parameter key="mailer_user">null</parameter>
     <parameter key="mailer_password">null</parameter>
     <parameter key="secret">f817ee6570d33baacff0e2cda3cca0b797aa099f</parameter>
@@ -90,6 +91,8 @@
     <parameter key="twig.exception_listener.controller">twig.controller.exception:showAction</parameter>
     <parameter key="twig.form.resources" type="collection">
       <parameter>form_div_layout.html.twig</parameter>
+      <parameter>bootstrap_3_layout.html.twig</parameter>
+      <parameter>MisdPhoneNumberBundle:Form:tel_bootstrap.html.twig</parameter>
     </parameter>
     <parameter key="monolog.use_microseconds">true</parameter>
     <parameter key="monolog.swift_mailer.handlers" type="collection"/>
@@ -126,7 +129,7 @@
     <parameter key="swiftmailer.mailer.default.delivery.enabled">true</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.encryption">null</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.port">25</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.host">127.0.0.1</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.host">localhost</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.username">null</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.password">null</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.auth_mode">null</parameter>
@@ -263,6 +266,15 @@
     <parameter key="sensio_framework_extra.converter.doctrine.class">Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter</parameter>
     <parameter key="sensio_framework_extra.converter.datetime.class">Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DateTimeParamConverter</parameter>
     <parameter key="sensio_framework_extra.view.listener.class">Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener</parameter>
+    <parameter key="libphonenumber.phone_number_util.class">libphonenumber\PhoneNumberUtil</parameter>
+    <parameter key="libphonenumber.phone_number_offline_geocoder.class">libphonenumber\geocoding\PhoneNumberOfflineGeocoder</parameter>
+    <parameter key="libphonenumber.short_number_info.class">libphonenumber\ShortNumberInfo</parameter>
+    <parameter key="libphonenumber.phone_number_to_carrier_mapper.class">libphonenumber\PhoneNumberToCarrierMapper</parameter>
+    <parameter key="libphonenumber.phone_number_to_time_zones_mapper.class">libphonenumber\PhoneNumberToTimeZonesMapper</parameter>
+    <parameter key="misd_phone_number.templating.helper.format.class">Misd\PhoneNumberBundle\Templating\Helper\PhoneNumberFormatHelper</parameter>
+    <parameter key="misd_phone_number.twig.extension.format.class">Misd\PhoneNumberBundle\Twig\Extension\PhoneNumberFormatExtension</parameter>
+    <parameter key="misd_phone_number.form.type.class">Misd\PhoneNumberBundle\Form\Type\PhoneNumberType</parameter>
+    <parameter key="misd_phone_number.serializer.handler.class">Misd\PhoneNumberBundle\Serializer\Handler\PhoneNumberHandler</parameter>
     <parameter key="web_profiler.debug_toolbar.position">bottom</parameter>
     <parameter key="web_profiler.debug_toolbar.intercept_redirects">false</parameter>
     <parameter key="web_profiler.debug_toolbar.mode">2</parameter>
@@ -433,7 +445,7 @@
                 <tag name="cache.pool" clearer="cache.default_clearer"/>
                 <argument>GzmsU7LRDg</argument>
                 <argument>0</argument>
-                <argument>7DKS5NYGINNiXnxVXaL06T</argument>
+                <argument>6r0TCPtN+Z9lSYuoOL8vjj</argument>
                 <argument>C:\wamp64\www\Symfony\var\cache\dev/pools</argument>
                 <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
                 <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -561,7 +573,7 @@
           <tag name="monolog.logger" channel="cache"/>
           <argument>WCy4oEEExV</argument>
           <argument>null</argument>
-          <argument>7DKS5NYGINNiXnxVXaL06T</argument>
+          <argument>6r0TCPtN+Z9lSYuoOL8vjj</argument>
           <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
           <factory class="Symfony\Component\PropertyAccess\PropertyAccessor" method="createCache"/>
         </service>
@@ -582,7 +594,7 @@
       <tag name="cache.pool" clearer="cache.default_clearer"/>
       <argument>Sr2NYiyEVw</argument>
       <argument>0</argument>
-      <argument>7DKS5NYGINNiXnxVXaL06T</argument>
+      <argument>6r0TCPtN+Z9lSYuoOL8vjj</argument>
       <argument>C:\wamp64\www\Symfony\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -592,7 +604,7 @@
       <tag name="cache.pool" clearer="cache.default_clearer"/>
       <argument>46cej4WFnb</argument>
       <argument>0</argument>
-      <argument>7DKS5NYGINNiXnxVXaL06T</argument>
+      <argument>6r0TCPtN+Z9lSYuoOL8vjj</argument>
       <argument>C:\wamp64\www\Symfony\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -882,6 +894,7 @@
               <argument key="Symfony\Component\Form\Extension\Core\Type\FormType">form.type.form</argument>
               <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType">form.type.choice</argument>
               <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType">form.type.entity</argument>
+              <argument key="Misd\PhoneNumberBundle\Form\Type\PhoneNumberType">misd_phone_number.form.type</argument>
             </argument>
             <argument type="collection">
               <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="collection">
@@ -1585,7 +1598,7 @@
       <argument type="collection">
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>58580a2c08dbf9.68346753</argument>
+            <argument>585be7d2e1f0c8.00077397</argument>
           </service>
         </argument>
       </argument>
@@ -1733,7 +1746,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>58580a2c08dbf9.68346753</argument>
+            <argument>585be7d2e1f0c8.00077397</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -1791,10 +1804,11 @@
       <argument type="collection">
         <argument key="debug">true</argument>
         <argument key="strict_variables">true</argument>
-        <argument key="exception_controller">twig.controller.exception:showAction</argument>
         <argument key="form_themes" type="collection">
           <argument>form_div_layout.html.twig</argument>
+          <argument>bootstrap_3_layout.html.twig</argument>
         </argument>
+        <argument key="exception_controller">twig.controller.exception:showAction</argument>
         <argument key="autoescape">name</argument>
         <argument key="cache">C:\wamp64\www\Symfony\var\cache\dev/twig</argument>
         <argument key="charset">UTF-8</argument>
@@ -1935,6 +1949,14 @@
       </call>
       <call method="addExtension">
         <argument type="service">
+          <service class="Misd\PhoneNumberBundle\Twig\Extension\PhoneNumberFormatExtension" public="false">
+            <tag name="twig.extension"/>
+            <argument type="service" id="misd_phone_number.templating.helper.format"/>
+          </service>
+        </argument>
+      </call>
+      <call method="addExtension">
+        <argument type="service">
           <service class="Symfony\Bridge\Twig\Extension\DumpExtension" public="false">
             <tag name="twig.extension"/>
             <argument type="service" id="var_dumper.cloner"/>
@@ -2026,6 +2048,8 @@
         <service class="Symfony\Bridge\Twig\Form\TwigRendererEngine" public="false">
           <argument type="collection">
             <argument>form_div_layout.html.twig</argument>
+            <argument>bootstrap_3_layout.html.twig</argument>
+            <argument>MisdPhoneNumberBundle:Form:tel_bootstrap.html.twig</argument>
           </argument>
           <argument type="service" id="twig"/>
         </service>
@@ -2101,14 +2125,17 @@
     <service id="doctrine.dbal.default_connection" class="Doctrine\DBAL\Connection">
       <argument type="collection">
         <argument key="driver">pdo_mysql</argument>
-        <argument key="host">127.0.0.1</argument>
+        <argument key="host">localhost</argument>
         <argument key="port">null</argument>
-        <argument key="dbname">symfony</argument>
+        <argument key="dbname">citypocket</argument>
         <argument key="user">root</argument>
         <argument key="password">null</argument>
-        <argument key="charset">UTF8</argument>
+        <argument key="charset">utf8mb4</argument>
         <argument key="driverOptions" type="collection"/>
-        <argument key="defaultTableOptions" type="collection"/>
+        <argument key="defaultTableOptions" type="collection">
+          <argument key="charset">utf8mb4</argument>
+          <argument key="collate">utf8mb4_unicode_ci</argument>
+        </argument>
       </argument>
       <argument type="service">
         <service class="Doctrine\DBAL\Configuration" public="false">
@@ -2190,7 +2217,9 @@
       <argument type="service">
         <service class="Doctrine\ORM\Configuration" public="false">
           <call method="setEntityNamespaces">
-            <argument type="collection"/>
+            <argument type="collection">
+              <argument key="pslieuxBundle">ps\lieuxBundle\EntitysControlers</argument>
+            </argument>
           </call>
           <call method="setMetadataCacheImpl">
             <argument type="service" id="doctrine_cache.providers.doctrine.orm.default_metadata_cache"/>
@@ -2203,7 +2232,19 @@
           </call>
           <call method="setMetadataDriverImpl">
             <argument type="service">
-              <service class="Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain" public="false"/>
+              <service class="Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain" public="false">
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>C:\wamp64\www\Symfony\src\ps\lieuxBundle\EntitysControlers</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>ps\lieuxBundle\EntitysControlers</argument>
+                </call>
+              </service>
             </argument>
           </call>
           <call method="setProxyDir">
@@ -2296,6 +2337,40 @@
       <argument type="service" id="security.role_hierarchy" on-invalid="null"/>
       <argument type="service" id="security.token_storage" on-invalid="null"/>
       <argument type="service" id="security.authorization_checker" on-invalid="null"/>
+    </service>
+    <service id="libphonenumber.phone_number_util" class="libphonenumber\PhoneNumberUtil">
+      <factory class="libphonenumber\PhoneNumberUtil" method="getInstance"/>
+    </service>
+    <service id="libphonenumber.phone_number_offline_geocoder" class="libphonenumber\geocoding\PhoneNumberOfflineGeocoder">
+      <factory class="libphonenumber\geocoding\PhoneNumberOfflineGeocoder" method="getInstance"/>
+    </service>
+    <service id="libphonenumber.short_number_info" class="libphonenumber\ShortNumberInfo">
+      <factory class="libphonenumber\ShortNumberInfo" method="getInstance"/>
+    </service>
+    <service id="libphonenumber.phone_number_to_carrier_mapper" class="libphonenumber\PhoneNumberToCarrierMapper">
+      <factory class="libphonenumber\PhoneNumberToCarrierMapper" method="getInstance"/>
+    </service>
+    <service id="libphonenumber.phone_number_to_time_zones_mapper" class="libphonenumber\PhoneNumberToTimeZonesMapper">
+      <factory class="libphonenumber\PhoneNumberToTimeZonesMapper" method="getInstance"/>
+    </service>
+    <service id="misd_phone_number.templating.helper.format" class="Misd\PhoneNumberBundle\Templating\Helper\PhoneNumberFormatHelper">
+      <tag name="templating.helper" alias="phone_number_format"/>
+      <argument type="service" id="libphonenumber.phone_number_util"/>
+    </service>
+    <service id="misd_phone_number.form.type" class="Misd\PhoneNumberBundle\Form\Type\PhoneNumberType">
+      <tag name="form.type" alias="tel"/>
+    </service>
+    <service id="misd_phone_number.serializer.handler" class="Misd\PhoneNumberBundle\Serializer\Handler\PhoneNumberHandler">
+      <tag name="jms_serializer.handler" type="libphonenumber\PhoneNumber" direction="serialization" format="json" method="serializePhoneNumber"/>
+      <tag name="jms_serializer.handler" type="libphonenumber\PhoneNumber" direction="deserialization" format="json" method="deserializePhoneNumberFromJson"/>
+      <tag name="jms_serializer.handler" type="libphonenumber\PhoneNumber" direction="serialization" format="xml" method="serializePhoneNumber"/>
+      <tag name="jms_serializer.handler" type="libphonenumber\PhoneNumber" direction="deserialization" format="xml" method="deserializePhoneNumberFromXml"/>
+      <tag name="jms_serializer.handler" type="libphonenumber\PhoneNumber" direction="serialization" format="yml" method="serializePhoneNumber"/>
+      <argument type="service" id="libphonenumber.phone_number_util"/>
+    </service>
+    <service id="misd_phone_number.serializer.normalizer" class="Misd\PhoneNumberBundle\Serializer\Normalizer\PhoneNumberNormalizer">
+      <tag name="serializer.normalizer"/>
+      <argument type="service" id="libphonenumber.phone_number_util"/>
     </service>
     <service id="data_collector.dump" class="Symfony\Component\HttpKernel\DataCollector\DumpDataCollector">
       <tag name="data_collector" id="dump" template="@Debug/Profiler/dump.html.twig" priority="240"/>
@@ -2628,6 +2703,10 @@
         <argument>Doctrine</argument>
       </call>
       <call method="addPath">
+        <argument>C:\wamp64\www\Symfony\vendor\misd\phone-number-bundle/Resources/views</argument>
+        <argument>MisdPhoneNumber</argument>
+      </call>
+      <call method="addPath">
         <argument>C:\wamp64\www\Symfony\src\ps\lieuxBundle/Resources/views</argument>
         <argument>pslieux</argument>
       </call>
@@ -2706,7 +2785,7 @@
       </argument>
       <argument type="service" id="swiftmailer.mailer.default.transport.eventdispatcher"/>
       <call method="setHost">
-        <argument>127.0.0.1</argument>
+        <argument>localhost</argument>
       </call>
       <call method="setPort">
         <argument>25</argument>

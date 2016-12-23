@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
- * Unique Entity Validator checks if one or a set of fields contain unique values.
+ * Unique EntitysControlers Validator checks if one or a set of fields contain unique values.
  *
  * @author Benjamin Eberlei <kontakt@beberlei.de>
  */

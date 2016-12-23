@@ -176,20 +176,20 @@ class Operation
      * requires a complex key elementPath, you must create the key separately.
      *
      * In complex applications you may want to create your own entity types.
-     * Google Cloud PHP supports subclassing of {@see Google\Cloud\Datastore\Entity}.
-     * If the name of a subclass of Entity is given in the options array, an
-     * instance of the subclass will be returned instead of Entity.
+     * Google Cloud PHP supports subclassing of {@see Google\Cloud\Datastore\EntitysControlers}.
+     * If the name of a subclass of EntitysControlers is given in the options array, an
+     * instance of the subclass will be returned instead of EntitysControlers.
      *
-     * @see https://cloud.google.com/datastore/reference/rest/v1/Entity Entity
+     * @see https://cloud.google.com/datastore/reference/rest/v1/Entity EntitysControlers
      *
      * @param Key|string $key The key used to identify the record, or a string $kind.
      * @param array $entity [optional] The data to fill the entity with.
      * @param array $options [optional] {
      *     Configuration Options
      *
-     *     @type string $className The name of a class extending {@see Google\Cloud\Datastore\Entity}.
-     *           If provided, an instance of that class will be returned instead of Entity.
-     *           If not set, {@see Google\Cloud\Datastore\Entity} will be used.
+     *     @type string $className The name of a class extending {@see Google\Cloud\Datastore\EntitysControlers}.
+     *           If provided, an instance of that class will be returned instead of EntitysControlers.
+     *           If not set, {@see Google\Cloud\Datastore\EntitysControlers} will be used.
      *     @type array $excludeFromIndexes A list of entity keys to exclude from
      *           datastore indexes.
      * }
@@ -215,7 +215,7 @@ class Operation
         $className = $options['className'];
         if (!is_null($className) && !is_subclass_of($className, Entity::class)) {
             throw new InvalidArgumentException(sprintf(
-                'Given classname %s is not a subclass of Entity',
+                'Given classname %s is not a subclass of EntitysControlers',
                 $className
             ));
         }
@@ -290,17 +290,17 @@ class Operation
      *     @type string $transaction The transaction ID, if the query should be
      *           run in a transaction.
      *     @type string|array $className If a string, the name of the class to return results as.
-     *           Must be a subclass of {@see Google\Cloud\Datastore\Entity}.
-     *           If not set, {@see Google\Cloud\Datastore\Entity} will be used.
+     *           Must be a subclass of {@see Google\Cloud\Datastore\EntitysControlers}.
+     *           If not set, {@see Google\Cloud\Datastore\EntitysControlers} will be used.
      *           If an array is given, it must be an associative array, where
      *           the key is a Kind and the value is the name of a subclass of
-     *           {@see Google\Cloud\Datastore\Entity}.
+     *           {@see Google\Cloud\Datastore\EntitysControlers}.
      *     @type bool $sort If set to true, results in each set will be sorted
      *           to match the order given in $keys. **Defaults to** `false`.
      * }
      * @return array Returns an array with keys [`found`, `missing`, and `deferred`].
      *         Members of `found` will be instance of
-     *         {@see Google\Cloud\Datastore\Entity}. Members of `missing` and
+     *         {@see Google\Cloud\Datastore\EntitysControlers}. Members of `missing` and
      *         `deferred` will be instance of {@see Google\Cloud\Datastore\Key}.
      * @throws InvalidArgumentException
      */
@@ -375,12 +375,12 @@ class Operation
      *     @type string $transaction The transaction ID, if the query should be
      *           run in a transaction.
      *     @type string $className The name of the class to return results as.
-     *           Must be a subclass of {@see Google\Cloud\Datastore\Entity}.
-     *           If not set, {@see Google\Cloud\Datastore\Entity} will be used.
+     *           Must be a subclass of {@see Google\Cloud\Datastore\EntitysControlers}.
+     *           If not set, {@see Google\Cloud\Datastore\EntitysControlers} will be used.
      *     @type string $readConsistency See
      *           [ReadConsistency](https://cloud.google.com/datastore/reference/rest/v1/ReadOptions#ReadConsistency).
      * }
-     * @return \Generator<Google\Cloud\Datastore\Entity>
+     * @return \Generator<Google\Cloud\Datastore\EntitysControlers>
      */
     public function runQuery(QueryInterface $query, array $options = [])
     {
@@ -508,7 +508,7 @@ class Operation
         $type,
         $baseVersion = null
     ) {
-        // If the given element is an Entity, it will use that baseVersion.
+        // If the given element is an EntitysControlers, it will use that baseVersion.
         if ($input instanceof Entity) {
             $baseVersion = $input->baseVersion();
             $data = $this->entityMapper->objectToRequest($input);
@@ -516,7 +516,7 @@ class Operation
             $data = $input->keyObject();
         } else {
             throw new InvalidArgumentException(sprintf(
-                'Input must be a Key or Entity, %s given',
+                'Input must be a Key or EntitysControlers, %s given',
                 get_class($input)
             ));
         }
@@ -574,11 +574,11 @@ class Operation
      *
      * @param array $entityResult The EntityResult from a Lookup.
      * @param string|array $class If a string, the name of the class to return results as.
-     *        Must be a subclass of {@see Google\Cloud\Datastore\Entity}.
-     *        If not set, {@see Google\Cloud\Datastore\Entity} will be used.
+     *        Must be a subclass of {@see Google\Cloud\Datastore\EntitysControlers}.
+     *        If not set, {@see Google\Cloud\Datastore\EntitysControlers} will be used.
      *        If an array is given, it must be an associative array, where
      *        the key is a Kind and the value is the name of a subclass of
-     *        {@see Google\Cloud\Datastore\Entity}.
+     *        {@see Google\Cloud\Datastore\EntitysControlers}.
      * @return Entity[]
      */
     private function mapEntityResult(array $entityResult, $class)

@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block categorieBlock %}
+    {% for cat in categories %}
+        <li><a href="{{ path('list', {'categorie' : cat}) }}">{{ cat }}</a></li>
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+    <h3>{{ action }} d'un lieu</h3>
+    {{ form(form) }}
+{% endblock %}

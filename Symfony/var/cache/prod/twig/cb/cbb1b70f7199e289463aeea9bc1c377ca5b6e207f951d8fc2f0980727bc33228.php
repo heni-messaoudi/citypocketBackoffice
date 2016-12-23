@@ -10,6 +10,7 @@ class __TwigTemplate_468eaacfb69202db19009d94a375131dbf1b86844586c6afaac992bec5f
         $this->parent = false;
 
         $this->blocks = array(
+            'categorieBlock' => array($this, 'block_categorieBlock'),
             'content' => array($this, 'block_content'),
         );
     }
@@ -24,27 +25,64 @@ class __TwigTemplate_468eaacfb69202db19009d94a375131dbf1b86844586c6afaac992bec5f
     <meta charset=\"utf-8\">
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
     <link rel=\"stylesheet\" href=\"//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css\">
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js\"></script>
+    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>
 </head>
 <body>
-<div class=\"navbar navbar-default\">
-    <div class=\"container\">
+<nav class=\"navbar navbar-inverse\">
+    <div class=\"container-fluid\">
         <div class=\"navbar-header\">
-            <div class=\"navbar-brand\">CityPocket</div>
+            <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#myNavbar\">
+                <span class=\"icon-bar\"></span>
+                <span class=\"icon-bar\"></span>
+                <span class=\"icon-bar\"></span>
+            </button>
+            <a class=\"navbar-brand\" href=\"";
+        // line 20
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("list");
+        echo "\">City Pocket</a>
+        </div>
+        <div class=\"collapse navbar-collapse\" id=\"myNavbar\">
+            <ul class=\"nav navbar-nav\">
+                <li><a href=\"";
+        // line 24
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("list");
+        echo "\">Liste</a></li>
+                <li class=\"dropdown\">
+                    <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">
+                        <span class=\"glyphicon glyphicon-search\"></span> Filtrer par categorie <span class=\"caret\"></span></a>
+                    <ul class=\"dropdown-menu\">
+                        ";
+        // line 29
+        $this->displayBlock('categorieBlock', $context, $blocks);
+        // line 30
+        echo "                    </ul>
+                </li>
+                <li><a href=\"";
+        // line 32
+        echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("create");
+        echo "\"><span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span> Ajouter un lieu</a></li>
+            </ul>
         </div>
     </div>
-</div>
+</nav>
 <div class=\"container\">
     ";
-        // line 18
+        // line 38
         $this->displayBlock('content', $context, $blocks);
-        // line 19
+        // line 39
         echo "</div>
 </body>
 </html>
 ";
     }
 
-    // line 18
+    // line 29
+    public function block_categorieBlock($context, array $blocks = array())
+    {
+    }
+
+    // line 38
     public function block_content($context, array $blocks = array())
     {
     }
@@ -54,9 +92,14 @@ class __TwigTemplate_468eaacfb69202db19009d94a375131dbf1b86844586c6afaac992bec5f
         return "base.html.twig";
     }
 
+    public function isTraitable()
+    {
+        return false;
+    }
+
     public function getDebugInfo()
     {
-        return array (  48 => 18,  41 => 19,  39 => 18,  20 => 1,);
+        return array (  86 => 38,  81 => 29,  74 => 39,  72 => 38,  63 => 32,  59 => 30,  57 => 29,  49 => 24,  42 => 20,  21 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */

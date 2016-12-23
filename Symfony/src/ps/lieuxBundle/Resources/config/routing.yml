@@ -6,6 +6,14 @@ list:
     path:     /list
     defaults: { _controller: pslieuxBundle:lieu:list }
 
-listFilter:
-    path:     /list/{categorie}
-    defaults: { _controller: pslieuxBundle:lieu:listFilter }
+get:
+    path:     /etab/{id}
+    defaults: { _controller: pslieuxBundle:lieu:get }
+
+delete:
+    path:     /etab/delete/{id}
+    defaults: { _controller: pslieuxBundle:lieu:delete }
+
+create:
+    path:     /etab/create/
+    defaults: { _controller: pslieuxBundle:lieu:create }

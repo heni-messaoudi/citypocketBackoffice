@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
- * @Entity
+ * @EntitysControlers
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */

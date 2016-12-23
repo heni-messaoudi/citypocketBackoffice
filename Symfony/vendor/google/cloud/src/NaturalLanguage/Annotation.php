@@ -76,7 +76,7 @@ use Google\Cloud\CallTrait;
  *     }
  *     ```
  *
- *     @see https://cloud.google.com/natural-language/reference/rest/v1beta1/Entity Entity type documentation
+ *     @see https://cloud.google.com/natural-language/reference/rest/v1beta1/Entity EntitysControlers type documentation
  *
  *     @return array|null
  * }
@@ -217,7 +217,7 @@ class Annotation
      * ```
      *
      * @codingStandardsIgnoreStart
-     * @see https://cloud.google.com/natural-language/reference/rest/v1beta1/Entity#type Entity types documentation
+     * @see https://cloud.google.com/natural-language/reference/rest/v1beta1/Entity#type EntitysControlers types documentation
      * @codingStandardsIgnoreEnd
      *
      * @return array|null

@@ -26,7 +26,7 @@ use InvalidArgumentException;
 use RuntimeException;
 
 /**
- * Utility methods for mapping between datastore and {@see Google\Cloud\Datastore\Entity}.
+ * Utility methods for mapping between datastore and {@see Google\Cloud\Datastore\EntitysControlers}.
  */
 class EntityMapper
 {
@@ -52,7 +52,7 @@ class EntityMapper
     private $returnInt64AsObject;
 
     /**
-     * Create an Entity Mapper
+     * Create an EntitysControlers Mapper
      *
      * @param string $projectId The datastore project ID
      * @param bool $encode Whether to encode blobs as base64.
@@ -99,10 +99,10 @@ class EntityMapper
     }
 
     /**
-     * Translate an Entity to a datastore representation.
+     * Translate an EntitysControlers to a datastore representation.
      *
      * @param Entity $entity The input entity.
-     * @return array A Datastore [Entity](https://cloud.google.com/datastore/reference/rest/v1/Entity)
+     * @return array A Datastore [EntitysControlers](https://cloud.google.com/datastore/reference/rest/v1/Entity)
      */
     public function objectToRequest(Entity $entity)
     {

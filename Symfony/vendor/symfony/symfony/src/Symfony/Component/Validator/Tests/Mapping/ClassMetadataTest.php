@@ -63,8 +63,8 @@ class ClassMetadataTest extends \PHPUnit_Framework_TestCase
         $this->metadata->addPropertyConstraints('lastName', array(new ConstraintA(), new ConstraintB()));
 
         $constraints = array(
-            new ConstraintA(array('groups' => array('Default', 'Entity'))),
-            new ConstraintB(array('groups' => array('Default', 'Entity'))),
+            new ConstraintA(array('groups' => array('Default', 'EntitysControlers'))),
+            new ConstraintB(array('groups' => array('Default', 'EntitysControlers'))),
         );
 
         $properties = $this->metadata->getPropertyMetadata('lastName');
@@ -80,8 +80,8 @@ class ClassMetadataTest extends \PHPUnit_Framework_TestCase
         $this->metadata->addGetterConstraint('lastName', new ConstraintB());
 
         $constraints = array(
-            new ConstraintA(array('groups' => array('Default', 'Entity'))),
-            new ConstraintB(array('groups' => array('Default', 'Entity'))),
+            new ConstraintA(array('groups' => array('Default', 'EntitysControlers'))),
+            new ConstraintB(array('groups' => array('Default', 'EntitysControlers'))),
         );
 
         $properties = $this->metadata->getPropertyMetadata('lastName');
@@ -96,8 +96,8 @@ class ClassMetadataTest extends \PHPUnit_Framework_TestCase
         $this->metadata->addGetterConstraints('lastName', array(new ConstraintA(), new ConstraintB()));
 
         $constraints = array(
-            new ConstraintA(array('groups' => array('Default', 'Entity'))),
-            new ConstraintB(array('groups' => array('Default', 'Entity'))),
+            new ConstraintA(array('groups' => array('Default', 'EntitysControlers'))),
+            new ConstraintB(array('groups' => array('Default', 'EntitysControlers'))),
         );
 
         $properties = $this->metadata->getPropertyMetadata('lastName');
@@ -119,11 +119,11 @@ class ClassMetadataTest extends \PHPUnit_Framework_TestCase
             new ConstraintA(array('groups' => array(
                 'Default',
                 'EntityParent',
-                'Entity',
+                'EntitysControlers',
             ))),
             new ConstraintA(array('groups' => array(
                 'Default',
-                'Entity',
+                'EntitysControlers',
             ))),
         );
 
@@ -141,11 +141,11 @@ class ClassMetadataTest extends \PHPUnit_Framework_TestCase
         $constraintA1 = new ConstraintA(array('groups' => array(
             'Default',
             'EntityParent',
-            'Entity',
+            'EntitysControlers',
         )));
         $constraintA2 = new ConstraintA(array('groups' => array(
             'Default',
-            'Entity',
+            'EntitysControlers',
         )));
 
         $constraints = array(
@@ -161,7 +161,7 @@ class ClassMetadataTest extends \PHPUnit_Framework_TestCase
             'EntityParent' => array(
                 $constraintA1,
             ),
-            'Entity' => array(
+            'EntitysControlers' => array(
                 $constraintA1,
                 $constraintA2,
             ),
@@ -195,13 +195,13 @@ class ClassMetadataTest extends \PHPUnit_Framework_TestCase
             new ConstraintA(array('groups' => array(
                 'Default',
                 'EntityParent',
-                'Entity',
+                'EntitysControlers',
             ))),
         );
         $constraints = array(
             new ConstraintA(array('groups' => array(
                 'Default',
-                'Entity',
+                'EntitysControlers',
             ))),
         );
 

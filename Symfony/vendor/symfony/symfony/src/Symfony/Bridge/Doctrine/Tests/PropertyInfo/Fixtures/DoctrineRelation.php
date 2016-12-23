@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
 
 /**
- * @Entity
+ * @EntityControlers
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */

@@ -27,7 +27,7 @@ class DoctrineEntityGeneratorTest extends GeneratorTest
         $this->generate(self::FORMAT_YAML);
 
         $files = array(
-            'Entity/Foo.php',
+            'EntitysControlers/Foo.php',
             'Resources/config/doctrine/Foo.orm.yml',
         );
 
@@ -40,7 +40,7 @@ class DoctrineEntityGeneratorTest extends GeneratorTest
         $this->generateSubNamespaced(self::FORMAT_YAML);
 
         $files = array(
-            'Entity/Sub/Foo.php',
+            'EntitysControlers/Sub/Foo.php',
             'Resources/config/doctrine/Sub.Foo.orm.yml',
         );
 
@@ -53,7 +53,7 @@ class DoctrineEntityGeneratorTest extends GeneratorTest
         $this->generate(self::FORMAT_XML);
 
         $files = array(
-            'Entity/Foo.php',
+            'EntitysControlers/Foo.php',
             'Resources/config/doctrine/Foo.orm.xml',
         );
 
@@ -66,7 +66,7 @@ class DoctrineEntityGeneratorTest extends GeneratorTest
         $this->generateSubNamespaced(self::FORMAT_XML);
 
         $files = array(
-            'Entity/Sub/Foo.php',
+            'EntitysControlers/Sub/Foo.php',
             'Resources/config/doctrine/Sub.Foo.orm.xml',
         );
 
@@ -79,7 +79,7 @@ class DoctrineEntityGeneratorTest extends GeneratorTest
         $this->generate(self::FORMAT_ANNOTATION);
 
         $files = array(
-            'Entity/Foo.php',
+            'EntitysControlers/Foo.php',
         );
 
         $annotations = array(
@@ -97,7 +97,7 @@ class DoctrineEntityGeneratorTest extends GeneratorTest
         $this->generateSubNamespaced(self::FORMAT_ANNOTATION);
 
         $files = array(
-            'Entity/Sub/Foo.php',
+            'EntitysControlers/Sub/Foo.php',
         );
 
         $annotations = array(
@@ -119,10 +119,10 @@ class DoctrineEntityGeneratorTest extends GeneratorTest
 
     protected function assertAttributesAndMethodsExists(array $otherStrings = array(), $entity = 'Foo')
     {
-        $content = file_get_contents($this->tmpDir.'/Entity/'.$entity.'.php');
+        $content = file_get_contents($this->tmpDir.'/EntitysControlers/'.$entity.'.php');
 
         $strings = array(
-            'namespace Foo\\BarBundle\\Entity',
+            'namespace Foo\\BarBundle\\EntitysControlers',
             'class Foo',
             'private $id',
             'private $bar',
@@ -181,7 +181,7 @@ class DoctrineEntityGeneratorTest extends GeneratorTest
     {
         $registry = $this->getMockBuilder('Symfony\Bridge\Doctrine\RegistryInterface')->getMock();
         $registry->expects($this->any())->method('getManager')->will($this->returnValue($this->getManager()));
-        $registry->expects($this->any())->method('getAliasNamespace')->will($this->returnValue('Foo\\BarBundle\\Entity'));
+        $registry->expects($this->any())->method('getAliasNamespace')->will($this->returnValue('Foo\\BarBundle\\EntitysControlers'));
 
         return $registry;
     }

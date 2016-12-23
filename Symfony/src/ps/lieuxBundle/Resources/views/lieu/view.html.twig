@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block categorieBlock %}
+    {% for cat in categories %}
+        <li><a href="{{ path('list', {'categorie' : cat}) }}">{{ cat }}</a></li>
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+    <h1>Détails du lieu</h1>
+    <div class="media">
+        <div class="media-body">
+            <h3 class="media-heading">Nom : {{ lieu.nom }}</h3>
+            <p> Categorie : {{ lieu.categorie }}</p>
+            <p>Latitude : {{ lieu.latitude }}</p>
+            <p>Longitude : {{ lieu.longitude }}</p>
+            {% if desc.adresse is not empty %}
+                <p>Adresse : {{ desc.adresse }}</p>
+            {% endif %}
+            {% if desc.email is not empty %}
+                <p>Email : {{ desc.email }}</p>
+            {% endif %}
+            {% if desc.numTel is not empty %}
+                <p>NumTél : {{ desc.numTel }}</p>
+            {% endif %}
+            {% if desc.presentation is not empty %}
+                <p>Présentation : {{ desc.presentation }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

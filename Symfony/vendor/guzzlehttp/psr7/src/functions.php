@@ -69,7 +69,7 @@ function uri_for($uri)
  * - metadata: Array of custom metadata.
  * - size: Size of the stream.
  *
- * @param resource|string|null|int|float|bool|StreamInterface|callable $resource Entity body data
+ * @param resource|string|null|int|float|bool|StreamInterface|callable $resource EntitysControlers body data
  * @param array                                                        $options  Additional options
  *
  * @return Stream

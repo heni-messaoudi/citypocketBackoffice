@@ -1,15 +1,17 @@
 {% extends "base.html.twig" %}
 
+{% block categorieBlock %}
+    {% for cat in categories %}
+        <li><a href="{{ path('list', {'categorie' : cat}) }}">{{ cat }}</a></li>
+    {% endfor %}
+{% endblock %}
 {% block content %}
-    <h3>{{ lieux|length }} lieux trouvés</h3>
-    {% if categorie is defined %}
-        pour la  categorie: {{ categorie.pathEndIdentifier() }}
-    {% endif %}
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped">
             <thead>
-            <tr class="success">
-                <th>ID</th>
+            <tr class="danger">
+                <th></th>
+                <th></th>
                 <th>nom</th>
                 <th>categorie</th>
                 <th>latitude</th>
@@ -18,17 +20,41 @@
             </thead>
             <tbody>
             {% for lieu in lieux %}
-            <tr>
-                <td><a href="#">{{ lieu.id }}</a></td>
-                <td>{{ lieu.nom }}</td>
-                <td>{{ lieu.categorie.pathEndIdentifier() }}</td>
-                <td>{{ lieu.latitude }}</td>
-                <td>{{ lieu.longitude }}</td>
-            </tr>
+                <tr>
+                    <td>
+                        <a href="{{ path('get', {'id' : lieu.id }) }}">
+                            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('delete', {'id' : lieu.id }) }}">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td>{{ lieu.nom }}</td>
+                    <td>{{ lieu.categorie.pathEndIdentifier() }}</td>
+                    <td>{{ lieu.latitude }}</td>
+                    <td>{{ lieu.longitude }}</td>
+                </tr>
             {% else %}
-            <tr><td>Pas d'établissements encore</td></tr>
+                <tr>
+                    <td>Pas d'établissements encore</td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>
+        {% if next_page_token %}
+            <nav>
+                <ul class="pager">
+                    <li><a href="{{ path('list', {'page_token' : next_page_token}) }}">More</a></li>
+                </ul>
+            </nav>
+        {% else %}
+            <nav>
+                <ul class="pager">
+                    <li><a href="{{ path('list') }}">Retour vers la première page</a></li>
+                </ul>
+            </nav>
+        {% endif %}
     </div>
 {% endblock %}

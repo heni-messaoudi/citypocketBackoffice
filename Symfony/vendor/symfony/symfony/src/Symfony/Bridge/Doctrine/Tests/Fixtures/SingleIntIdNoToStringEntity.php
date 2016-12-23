@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 
-/** @Entity */
+/** @EntityControlers */
 class SingleIntIdNoToStringEntity
 {
     /** @Id @Column(type="integer") */

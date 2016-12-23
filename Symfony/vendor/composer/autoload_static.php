@@ -21,6 +21,10 @@ class ComposerStaticInit0a2fcc43741cce9f826e26f7632f65c5
     );
 
     public static $prefixLengthsPsr4 = array (
+        'l' => 
+        array (
+            'libphonenumber\\' => 15,
+        ),
         'T' => 
         array (
             'Tests\\' => 6,
@@ -54,6 +58,7 @@ class ComposerStaticInit0a2fcc43741cce9f826e26f7632f65c5
         'M' => 
         array (
             'Monolog\\' => 8,
+            'Misd\\PhoneNumberBundle\\' => 23,
         ),
         'I' => 
         array (
@@ -66,6 +71,7 @@ class ComposerStaticInit0a2fcc43741cce9f826e26f7632f65c5
             'GuzzleHttp\\' => 11,
             'Google\\Cloud\\' => 13,
             'Google\\Auth\\' => 12,
+            'Giggsey\\Locale\\' => 15,
         ),
         'F' => 
         array (
@@ -83,6 +89,10 @@ class ComposerStaticInit0a2fcc43741cce9f826e26f7632f65c5
     );
 
     public static $prefixDirsPsr4 = array (
+        'libphonenumber\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/giggsey/libphonenumber-for-php/src',
+        ),
         'Tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests',
@@ -171,6 +181,10 @@ class ComposerStaticInit0a2fcc43741cce9f826e26f7632f65c5
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
+        'Misd\\PhoneNumberBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/misd/phone-number-bundle',
+        ),
         'Incenteev\\ParameterHandler\\' => 
         array (
             0 => __DIR__ . '/..' . '/incenteev/composer-parameter-handler',
@@ -194,6 +208,10 @@ class ComposerStaticInit0a2fcc43741cce9f826e26f7632f65c5
         'Google\\Auth\\' => 
         array (
             0 => __DIR__ . '/..' . '/google/auth/src',
+        ),
+        'Giggsey\\Locale\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/giggsey/locale/src',
         ),
         'Firebase\\JWT\\' => 
         array (

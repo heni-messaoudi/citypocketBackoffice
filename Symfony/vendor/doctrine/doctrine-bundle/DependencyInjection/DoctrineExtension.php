@@ -536,7 +536,7 @@ class DoctrineExtension extends AbstractDoctrineExtension
 
         if (isset($entityManager['entity_listeners'])) {
             if (!isset($listenerDef)) {
-                throw new InvalidArgumentException('Entity listeners configuration requires doctrine-orm 2.5.0 or newer');
+                throw new InvalidArgumentException('EntitysControlers listeners configuration requires doctrine-orm 2.5.0 or newer');
             }
 
             $entities = $entityManager['entity_listeners']['entities'];
@@ -730,7 +730,7 @@ class DoctrineExtension extends AbstractDoctrineExtension
 
     protected function getMappingObjectDefaultName()
     {
-        return 'Entity';
+        return 'EntitysControlers';
     }
 
     /**

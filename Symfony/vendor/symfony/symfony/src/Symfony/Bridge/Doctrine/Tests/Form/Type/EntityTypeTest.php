@@ -776,7 +776,7 @@ class EntityTypeTest extends TypeTestCase
 
         $this->assertEquals(array('Foo' => new ChoiceView($entity1, 'Foo', 'Foo'), 'Bar' => new ChoiceView($entity2, 'Bar', 'Bar')), $field->createView()->vars['choices']);
         $this->assertTrue($field->isSynchronized(), 'Field should be synchronized.');
-        $this->assertSame($entity2, $field->getData(), 'Entity should be loaded by custom value.');
+        $this->assertSame($entity2, $field->getData(), 'EntitysControlers should be loaded by custom value.');
         $this->assertSame('Bar', $field->getViewData());
     }
 
@@ -807,7 +807,7 @@ class EntityTypeTest extends TypeTestCase
             'BooGroup/Bar' => new ChoiceView($entity2, 'BooGroup/Bar', 'Bar'),
             ), $field->createView()->vars['choices']);
         $this->assertTrue($field->isSynchronized(), 'Field should be synchronized.');
-        $this->assertSame($entity2, $field->getData(), 'Entity should be loaded by custom value.');
+        $this->assertSame($entity2, $field->getData(), 'EntitysControlers should be loaded by custom value.');
         $this->assertSame('BooGroup/Bar', $field->getViewData());
     }
 

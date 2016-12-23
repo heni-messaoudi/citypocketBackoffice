@@ -474,6 +474,57 @@ class __TwigTemplate_d5fb79f20c8734dc82956f25e52df7f94b6b5ce5906de8837b283c8acfa
                     unset($context['_seq'], $context['_iterated'], $context['_key'], $context['messagePart'], $context['_parent'], $context['loop']);
                     $context = array_intersect_key($context, $_parent) + $_parent;
                     // line 178
+                    echo "
+                    ";
+                    // line 179
+                    $context["attachments"] = $this->getAttribute((isset($context["collector"]) ? $context["collector"] : null), "extractAttachments", array(0 => $context["message"]), "method");
+                    // line 180
+                    echo "                    ";
+                    if ((isset($context["attachments"]) ? $context["attachments"] : null)) {
+                        // line 181
+                        echo "                        <div class=\"card-block\">
+                            <span class=\"label\">
+                                ";
+                        // line 183
+                        if ((twig_length_filter($this->env, (isset($context["attachments"]) ? $context["attachments"] : null)) > 1)) {
+                            // line 184
+                            echo "                                    ";
+                            echo twig_escape_filter($this->env, twig_length_filter($this->env, (isset($context["attachments"]) ? $context["attachments"] : null)), "html", null, true);
+                            echo " Attachments
+                                ";
+                        } else {
+                            // line 186
+                            echo "                                    1 Attachment
+                                ";
+                        }
+                        // line 188
+                        echo "                            </span>
+
+                            <ol>
+                                ";
+                        // line 191
+                        $context['_parent'] = $context;
+                        $context['_seq'] = twig_ensure_traversable((isset($context["attachments"]) ? $context["attachments"] : null));
+                        foreach ($context['_seq'] as $context["_key"] => $context["attachment"]) {
+                            // line 192
+                            echo "                                    <li>
+                                        Filename:
+                                        ";
+                            // line 194
+                            echo twig_escape_filter($this->env, $this->getAttribute($context["attachment"], "filename", array()), "html", null, true);
+                            echo "
+                                    </li>
+                                ";
+                        }
+                        $_parent = $context['_parent'];
+                        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['attachment'], $context['_parent'], $context['loop']);
+                        $context = array_intersect_key($context, $_parent) + $_parent;
+                        // line 197
+                        echo "                            </ol>
+                        </div>
+                    ";
+                    }
+                    // line 200
                     echo "                </div>
             ";
                     ++$context['loop']['index0'];
@@ -488,10 +539,10 @@ class __TwigTemplate_d5fb79f20c8734dc82956f25e52df7f94b6b5ce5906de8837b283c8acfa
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['message'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 180
+                // line 202
                 echo "        ";
             }
-            // line 181
+            // line 203
             echo "    ";
         }
         $_parent = $context['_parent'];
@@ -511,7 +562,7 @@ class __TwigTemplate_d5fb79f20c8734dc82956f25e52df7f94b6b5ce5906de8837b283c8acfa
 
     public function getDebugInfo()
     {
-        return array (  495 => 181,  492 => 180,  477 => 178,  468 => 175,  465 => 173,  462 => 171,  460 => 170,  456 => 168,  453 => 167,  448 => 166,  443 => 163,  440 => 161,  437 => 159,  435 => 158,  428 => 152,  422 => 151,  418 => 150,  412 => 146,  408 => 144,  402 => 142,  399 => 141,  381 => 140,  375 => 136,  373 => 135,  370 => 134,  364 => 131,  360 => 130,  357 => 129,  354 => 128,  350 => 127,  347 => 126,  343 => 124,  332 => 121,  328 => 120,  325 => 119,  321 => 118,  318 => 117,  313 => 114,  304 => 111,  300 => 110,  296 => 109,  292 => 108,  289 => 107,  285 => 106,  273 => 96,  271 => 95,  268 => 94,  262 => 90,  260 => 89,  255 => 86,  243 => 76,  241 => 75,  238 => 74,  235 => 73,  232 => 72,  227 => 69,  221 => 66,  218 => 65,  216 => 64,  212 => 62,  206 => 60,  202 => 58,  200 => 57,  196 => 56,  193 => 55,  190 => 54,  187 => 53,  180 => 49,  177 => 48,  174 => 47,  171 => 46,  162 => 43,  158 => 42,  154 => 41,  151 => 40,  146 => 39,  143 => 38,  129 => 37,  125 => 35,  123 => 34,  117 => 31,  110 => 27,  106 => 26,  103 => 25,  85 => 24,  83 => 23,  77 => 20,  73 => 18,  71 => 17,  68 => 16,  65 => 15,  60 => 13,  55 => 12,  50 => 10,  47 => 9,  44 => 8,  41 => 7,  39 => 6,  36 => 5,  33 => 4,  30 => 3,  11 => 1,);
+        return array (  546 => 203,  543 => 202,  528 => 200,  523 => 197,  514 => 194,  510 => 192,  506 => 191,  501 => 188,  497 => 186,  491 => 184,  489 => 183,  485 => 181,  482 => 180,  480 => 179,  477 => 178,  468 => 175,  465 => 173,  462 => 171,  460 => 170,  456 => 168,  453 => 167,  448 => 166,  443 => 163,  440 => 161,  437 => 159,  435 => 158,  428 => 152,  422 => 151,  418 => 150,  412 => 146,  408 => 144,  402 => 142,  399 => 141,  381 => 140,  375 => 136,  373 => 135,  370 => 134,  364 => 131,  360 => 130,  357 => 129,  354 => 128,  350 => 127,  347 => 126,  343 => 124,  332 => 121,  328 => 120,  325 => 119,  321 => 118,  318 => 117,  313 => 114,  304 => 111,  300 => 110,  296 => 109,  292 => 108,  289 => 107,  285 => 106,  273 => 96,  271 => 95,  268 => 94,  262 => 90,  260 => 89,  255 => 86,  243 => 76,  241 => 75,  238 => 74,  235 => 73,  232 => 72,  227 => 69,  221 => 66,  218 => 65,  216 => 64,  212 => 62,  206 => 60,  202 => 58,  200 => 57,  196 => 56,  193 => 55,  190 => 54,  187 => 53,  180 => 49,  177 => 48,  174 => 47,  171 => 46,  162 => 43,  158 => 42,  154 => 41,  151 => 40,  146 => 39,  143 => 38,  129 => 37,  125 => 35,  123 => 34,  117 => 31,  110 => 27,  106 => 26,  103 => 25,  85 => 24,  83 => 23,  77 => 20,  73 => 18,  71 => 17,  68 => 16,  65 => 15,  60 => 13,  55 => 12,  50 => 10,  47 => 9,  44 => 8,  41 => 7,  39 => 6,  36 => 5,  33 => 4,  30 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */

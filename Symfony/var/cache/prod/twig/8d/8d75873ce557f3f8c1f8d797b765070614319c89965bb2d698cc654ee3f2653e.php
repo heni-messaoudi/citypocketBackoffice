@@ -10,6 +10,7 @@ class __TwigTemplate_e8e4cf8896fc76db480a644d39c9153eb1221c6b2534dee8c19d1f77850
         // line 1
         $this->parent = $this->loadTemplate("base.html.twig", "pslieuxBundle:lieu:list.html.twig", 1);
         $this->blocks = array(
+            'categorieBlock' => array($this, 'block_categorieBlock'),
             'content' => array($this, 'block_content'),
         );
     }
@@ -25,27 +26,36 @@ class __TwigTemplate_e8e4cf8896fc76db480a644d39c9153eb1221c6b2534dee8c19d1f77850
     }
 
     // line 3
-    public function block_content($context, array $blocks = array())
+    public function block_categorieBlock($context, array $blocks = array())
     {
         // line 4
-        echo "    <h3>";
-        echo twig_escape_filter($this->env, twig_length_filter($this->env, ($context["lieux"] ?? null)), "html", null, true);
-        echo " lieux trouvés</h3>
-    ";
-        // line 5
-        if (array_key_exists("categorie", $context)) {
-            // line 6
-            echo "        pour la  categorie: ";
-            echo twig_escape_filter($this->env, $this->getAttribute(($context["categorie"] ?? null), "pathEndIdentifier", array(), "method"), "html", null, true);
-            echo "
+        echo "    ";
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable(($context["categories"] ?? null));
+        foreach ($context['_seq'] as $context["_key"] => $context["cat"]) {
+            // line 5
+            echo "        <li><a href=\"";
+            echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("list", array("categorie" => $context["cat"])), "html", null, true);
+            echo "\">";
+            echo twig_escape_filter($this->env, $context["cat"], "html", null, true);
+            echo "</a></li>
     ";
         }
-        // line 8
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['cat'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+    }
+
+    // line 8
+    public function block_content($context, array $blocks = array())
+    {
+        // line 9
         echo "    <div class=\"table-responsive\">
-        <table class=\"table\">
+        <table class=\"table table-striped\">
             <thead>
-            <tr class=\"success\">
-                <th>ID</th>
+            <tr class=\"danger\">
+                <th></th>
+                <th></th>
                 <th>nom</th>
                 <th>categorie</th>
                 <th>latitude</th>
@@ -54,49 +64,89 @@ class __TwigTemplate_e8e4cf8896fc76db480a644d39c9153eb1221c6b2534dee8c19d1f77850
             </thead>
             <tbody>
             ";
-        // line 20
+        // line 22
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(($context["lieux"] ?? null));
         $context['_iterated'] = false;
         foreach ($context['_seq'] as $context["_key"] => $context["lieu"]) {
-            // line 21
-            echo "            <tr>
-                <td><a href=\"#\">";
-            // line 22
-            echo twig_escape_filter($this->env, $this->getAttribute($context["lieu"], "id", array()), "html", null, true);
-            echo "</a></td>
-                <td>";
             // line 23
+            echo "                <tr>
+                    <td>
+                        <a href=\"";
+            // line 25
+            echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("get", array("id" => $this->getAttribute($context["lieu"], "id", array()))), "html", null, true);
+            echo "\">
+                            <span class=\"glyphicon glyphicon-zoom-in\" aria-hidden=\"true\"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href=\"";
+            // line 30
+            echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("delete", array("id" => $this->getAttribute($context["lieu"], "id", array()))), "html", null, true);
+            echo "\">
+                            <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>
+                        </a>
+                    </td>
+                    <td>";
+            // line 34
             echo twig_escape_filter($this->env, $this->getAttribute($context["lieu"], "nom", array()), "html", null, true);
             echo "</td>
-                <td>";
-            // line 24
+                    <td>";
+            // line 35
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($context["lieu"], "categorie", array()), "pathEndIdentifier", array(), "method"), "html", null, true);
             echo "</td>
-                <td>";
-            // line 25
+                    <td>";
+            // line 36
             echo twig_escape_filter($this->env, $this->getAttribute($context["lieu"], "latitude", array()), "html", null, true);
             echo "</td>
-                <td>";
-            // line 26
+                    <td>";
+            // line 37
             echo twig_escape_filter($this->env, $this->getAttribute($context["lieu"], "longitude", array()), "html", null, true);
             echo "</td>
-            </tr>
+                </tr>
             ";
             $context['_iterated'] = true;
         }
         if (!$context['_iterated']) {
-            // line 29
-            echo "            <tr><td>Pas d'établissements encore</td></tr>
+            // line 40
+            echo "                <tr>
+                    <td>Pas d'établissements encore</td>
+                </tr>
             ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['lieu'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 31
+        // line 44
         echo "            </tbody>
         </table>
-    </div>
+        ";
+        // line 46
+        if (($context["next_page_token"] ?? null)) {
+            // line 47
+            echo "            <nav>
+                <ul class=\"pager\">
+                    <li><a href=\"";
+            // line 49
+            echo twig_escape_filter($this->env, $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("list", array("page_token" => ($context["next_page_token"] ?? null))), "html", null, true);
+            echo "\">More</a></li>
+                </ul>
+            </nav>
+        ";
+        } else {
+            // line 53
+            echo "            <nav>
+                <ul class=\"pager\">
+                    <li><a href=\"";
+            // line 55
+            echo $this->env->getExtension('Symfony\Bridge\Twig\Extension\RoutingExtension')->getPath("list");
+            echo "\">Retour vers la première page</a></li>
+                </ul>
+            </nav>
+        ";
+        }
+        // line 59
+        echo "    </div>
 ";
     }
 
@@ -112,7 +162,7 @@ class __TwigTemplate_e8e4cf8896fc76db480a644d39c9153eb1221c6b2534dee8c19d1f77850
 
     public function getDebugInfo()
     {
-        return array (  97 => 31,  90 => 29,  82 => 26,  78 => 25,  74 => 24,  70 => 23,  66 => 22,  63 => 21,  58 => 20,  44 => 8,  38 => 6,  36 => 5,  31 => 4,  28 => 3,  11 => 1,);
+        return array (  149 => 59,  142 => 55,  138 => 53,  131 => 49,  127 => 47,  125 => 46,  121 => 44,  112 => 40,  104 => 37,  100 => 36,  96 => 35,  92 => 34,  85 => 30,  77 => 25,  73 => 23,  68 => 22,  53 => 9,  50 => 8,  37 => 5,  32 => 4,  29 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */

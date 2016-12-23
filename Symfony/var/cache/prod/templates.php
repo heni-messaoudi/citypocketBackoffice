@@ -79,7 +79,9 @@
   'SwiftmailerBundle:Collector:swiftmailer.html.twig' => __DIR__.'/../../../vendor/symfony/swiftmailer-bundle/Resources/views/Collector/swiftmailer.html.twig',
   'DoctrineBundle:Collector:db.html.twig' => __DIR__.'/../../../vendor/doctrine/doctrine-bundle/Resources/views/Collector/db.html.twig',
   'DoctrineBundle:Collector:explain.html.twig' => __DIR__.'/../../../vendor/doctrine/doctrine-bundle/Resources/views/Collector/explain.html.twig',
+  'pslieuxBundle:lieu:form.html.twig' => __DIR__.'/../../../src/ps/lieuxBundle/Resources/views/lieu/form.html.twig',
   'pslieuxBundle:lieu:list.html.twig' => __DIR__.'/../../../src/ps/lieuxBundle/Resources/views/lieu/list.html.twig',
+  'pslieuxBundle:lieu:view.html.twig' => __DIR__.'/../../../src/ps/lieuxBundle/Resources/views/lieu/view.html.twig',
   '::base.html.twig' => __DIR__.'/../../../app/Resources/views/base.html.twig',
   ':default:index.html.twig' => __DIR__.'/../../../app/Resources/views/default/index.html.twig',
 );

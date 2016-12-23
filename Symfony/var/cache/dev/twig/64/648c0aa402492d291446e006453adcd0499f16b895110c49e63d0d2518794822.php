@@ -23,29 +23,29 @@ class __TwigTemplate_02949b112e3576d7ee6b29a8196cfdfb4b5b816fa4a6004323be2fbe5db
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_09606c79703bf9e6d438c3f6942e66b4f31107d0b69c0b83d3784bc292e6f49d = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_09606c79703bf9e6d438c3f6942e66b4f31107d0b69c0b83d3784bc292e6f49d->enter($__internal_09606c79703bf9e6d438c3f6942e66b4f31107d0b69c0b83d3784bc292e6f49d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Swiftmailer/Collector/swiftmailer.html.twig"));
+        $__internal_8978ae5f352e8c5771a665419ff2b782f50881a3e366a20c7c5b0c4d6b4baab1 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_8978ae5f352e8c5771a665419ff2b782f50881a3e366a20c7c5b0c4d6b4baab1->enter($__internal_8978ae5f352e8c5771a665419ff2b782f50881a3e366a20c7c5b0c4d6b4baab1_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Swiftmailer/Collector/swiftmailer.html.twig"));
 
-        $__internal_adbcfb66db3766888528529d24f0315245b3c1ce58368241c1c9a2e36ccc02f7 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_adbcfb66db3766888528529d24f0315245b3c1ce58368241c1c9a2e36ccc02f7->enter($__internal_adbcfb66db3766888528529d24f0315245b3c1ce58368241c1c9a2e36ccc02f7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Swiftmailer/Collector/swiftmailer.html.twig"));
+        $__internal_8d9448d8e719b2fed0fa7cf27534758940143504542c2f3c75babfee4fc18194 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_8d9448d8e719b2fed0fa7cf27534758940143504542c2f3c75babfee4fc18194->enter($__internal_8d9448d8e719b2fed0fa7cf27534758940143504542c2f3c75babfee4fc18194_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@Swiftmailer/Collector/swiftmailer.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_09606c79703bf9e6d438c3f6942e66b4f31107d0b69c0b83d3784bc292e6f49d->leave($__internal_09606c79703bf9e6d438c3f6942e66b4f31107d0b69c0b83d3784bc292e6f49d_prof);
+        $__internal_8978ae5f352e8c5771a665419ff2b782f50881a3e366a20c7c5b0c4d6b4baab1->leave($__internal_8978ae5f352e8c5771a665419ff2b782f50881a3e366a20c7c5b0c4d6b4baab1_prof);
 
         
-        $__internal_adbcfb66db3766888528529d24f0315245b3c1ce58368241c1c9a2e36ccc02f7->leave($__internal_adbcfb66db3766888528529d24f0315245b3c1ce58368241c1c9a2e36ccc02f7_prof);
+        $__internal_8d9448d8e719b2fed0fa7cf27534758940143504542c2f3c75babfee4fc18194->leave($__internal_8d9448d8e719b2fed0fa7cf27534758940143504542c2f3c75babfee4fc18194_prof);
 
     }
 
     // line 3
     public function block_toolbar($context, array $blocks = array())
     {
-        $__internal_8c222c7041d77216e2031377a6119859b755dd9f7af54729c7bb7ff28a0e71e7 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_8c222c7041d77216e2031377a6119859b755dd9f7af54729c7bb7ff28a0e71e7->enter($__internal_8c222c7041d77216e2031377a6119859b755dd9f7af54729c7bb7ff28a0e71e7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
+        $__internal_63399067dc0521c5f60511116bc24d3781695c6c8c6534ad779ecf226282e292 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_63399067dc0521c5f60511116bc24d3781695c6c8c6534ad779ecf226282e292->enter($__internal_63399067dc0521c5f60511116bc24d3781695c6c8c6534ad779ecf226282e292_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
 
-        $__internal_fb425dc8bfcf4739e87cf2bf0c575074c9f04f0f834df4be51d284898c1859d8 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_fb425dc8bfcf4739e87cf2bf0c575074c9f04f0f834df4be51d284898c1859d8->enter($__internal_fb425dc8bfcf4739e87cf2bf0c575074c9f04f0f834df4be51d284898c1859d8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
+        $__internal_34cfb892f28293f9a18e04cd96643aba2dd45194027755455e76e8734fdcecbe = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_34cfb892f28293f9a18e04cd96643aba2dd45194027755455e76e8734fdcecbe->enter($__internal_34cfb892f28293f9a18e04cd96643aba2dd45194027755455e76e8734fdcecbe_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "toolbar"));
 
         // line 4
         echo "    ";
@@ -200,21 +200,21 @@ class __TwigTemplate_02949b112e3576d7ee6b29a8196cfdfb4b5b816fa4a6004323be2fbe5db
     ";
         }
         
-        $__internal_fb425dc8bfcf4739e87cf2bf0c575074c9f04f0f834df4be51d284898c1859d8->leave($__internal_fb425dc8bfcf4739e87cf2bf0c575074c9f04f0f834df4be51d284898c1859d8_prof);
+        $__internal_34cfb892f28293f9a18e04cd96643aba2dd45194027755455e76e8734fdcecbe->leave($__internal_34cfb892f28293f9a18e04cd96643aba2dd45194027755455e76e8734fdcecbe_prof);
 
         
-        $__internal_8c222c7041d77216e2031377a6119859b755dd9f7af54729c7bb7ff28a0e71e7->leave($__internal_8c222c7041d77216e2031377a6119859b755dd9f7af54729c7bb7ff28a0e71e7_prof);
+        $__internal_63399067dc0521c5f60511116bc24d3781695c6c8c6534ad779ecf226282e292->leave($__internal_63399067dc0521c5f60511116bc24d3781695c6c8c6534ad779ecf226282e292_prof);
 
     }
 
     // line 53
     public function block_menu($context, array $blocks = array())
     {
-        $__internal_ac9b3c5b85a250d58f8fb5a2fb02ee28b06603b37af1247286a025a51c104df8 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_ac9b3c5b85a250d58f8fb5a2fb02ee28b06603b37af1247286a025a51c104df8->enter($__internal_ac9b3c5b85a250d58f8fb5a2fb02ee28b06603b37af1247286a025a51c104df8_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
+        $__internal_abd69e8ffc0c9cf36613b150c5e73d13429f5f9019b9afba5008e2c040747c2b = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_abd69e8ffc0c9cf36613b150c5e73d13429f5f9019b9afba5008e2c040747c2b->enter($__internal_abd69e8ffc0c9cf36613b150c5e73d13429f5f9019b9afba5008e2c040747c2b_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
 
-        $__internal_803297120a3239b07f15de697dc644c7e1967cf227a50949d6f6fb25244d29b7 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_803297120a3239b07f15de697dc644c7e1967cf227a50949d6f6fb25244d29b7->enter($__internal_803297120a3239b07f15de697dc644c7e1967cf227a50949d6f6fb25244d29b7_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
+        $__internal_b9b715d93262494f26b3543378d3cdb0934b0ddaa188d0993b2bbc34477b7b41 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_b9b715d93262494f26b3543378d3cdb0934b0ddaa188d0993b2bbc34477b7b41->enter($__internal_b9b715d93262494f26b3543378d3cdb0934b0ddaa188d0993b2bbc34477b7b41_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "menu"));
 
         // line 54
         echo "    ";
@@ -257,21 +257,21 @@ class __TwigTemplate_02949b112e3576d7ee6b29a8196cfdfb4b5b816fa4a6004323be2fbe5db
         echo "    </span>
 ";
         
-        $__internal_803297120a3239b07f15de697dc644c7e1967cf227a50949d6f6fb25244d29b7->leave($__internal_803297120a3239b07f15de697dc644c7e1967cf227a50949d6f6fb25244d29b7_prof);
+        $__internal_b9b715d93262494f26b3543378d3cdb0934b0ddaa188d0993b2bbc34477b7b41->leave($__internal_b9b715d93262494f26b3543378d3cdb0934b0ddaa188d0993b2bbc34477b7b41_prof);
 
         
-        $__internal_ac9b3c5b85a250d58f8fb5a2fb02ee28b06603b37af1247286a025a51c104df8->leave($__internal_ac9b3c5b85a250d58f8fb5a2fb02ee28b06603b37af1247286a025a51c104df8_prof);
+        $__internal_abd69e8ffc0c9cf36613b150c5e73d13429f5f9019b9afba5008e2c040747c2b->leave($__internal_abd69e8ffc0c9cf36613b150c5e73d13429f5f9019b9afba5008e2c040747c2b_prof);
 
     }
 
     // line 72
     public function block_panel($context, array $blocks = array())
     {
-        $__internal_36115f7b05bc22177950a47c4327145799f8cd2027975ff63a4c54665781ab6c = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_36115f7b05bc22177950a47c4327145799f8cd2027975ff63a4c54665781ab6c->enter($__internal_36115f7b05bc22177950a47c4327145799f8cd2027975ff63a4c54665781ab6c_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
+        $__internal_d4e7afd26f102acf397638222b5e45e6531008558f5ef30af6a5eea25f5ea310 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_d4e7afd26f102acf397638222b5e45e6531008558f5ef30af6a5eea25f5ea310->enter($__internal_d4e7afd26f102acf397638222b5e45e6531008558f5ef30af6a5eea25f5ea310_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
 
-        $__internal_0d14351f81f36a3834be03dd1d97d2fcc8cd9b7ec26acbf2cc203d28a8bd2089 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_0d14351f81f36a3834be03dd1d97d2fcc8cd9b7ec26acbf2cc203d28a8bd2089->enter($__internal_0d14351f81f36a3834be03dd1d97d2fcc8cd9b7ec26acbf2cc203d28a8bd2089_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
+        $__internal_7f42ae3bd619ec7d2aa8edeee36c1cbe46e90c104fd0b847c1df9e20a42907f2 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_7f42ae3bd619ec7d2aa8edeee36c1cbe46e90c104fd0b847c1df9e20a42907f2->enter($__internal_7f42ae3bd619ec7d2aa8edeee36c1cbe46e90c104fd0b847c1df9e20a42907f2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "panel"));
 
         // line 73
         echo "    ";
@@ -516,6 +516,57 @@ class __TwigTemplate_02949b112e3576d7ee6b29a8196cfdfb4b5b816fa4a6004323be2fbe5db
                     unset($context['_seq'], $context['_iterated'], $context['_key'], $context['messagePart'], $context['_parent'], $context['loop']);
                     $context = array_intersect_key($context, $_parent) + $_parent;
                     // line 178
+                    echo "
+                    ";
+                    // line 179
+                    $context["attachments"] = $this->getAttribute(($context["collector"] ?? $this->getContext($context, "collector")), "extractAttachments", array(0 => $context["message"]), "method");
+                    // line 180
+                    echo "                    ";
+                    if (($context["attachments"] ?? $this->getContext($context, "attachments"))) {
+                        // line 181
+                        echo "                        <div class=\"card-block\">
+                            <span class=\"label\">
+                                ";
+                        // line 183
+                        if ((twig_length_filter($this->env, ($context["attachments"] ?? $this->getContext($context, "attachments"))) > 1)) {
+                            // line 184
+                            echo "                                    ";
+                            echo twig_escape_filter($this->env, twig_length_filter($this->env, ($context["attachments"] ?? $this->getContext($context, "attachments"))), "html", null, true);
+                            echo " Attachments
+                                ";
+                        } else {
+                            // line 186
+                            echo "                                    1 Attachment
+                                ";
+                        }
+                        // line 188
+                        echo "                            </span>
+
+                            <ol>
+                                ";
+                        // line 191
+                        $context['_parent'] = $context;
+                        $context['_seq'] = twig_ensure_traversable(($context["attachments"] ?? $this->getContext($context, "attachments")));
+                        foreach ($context['_seq'] as $context["_key"] => $context["attachment"]) {
+                            // line 192
+                            echo "                                    <li>
+                                        Filename:
+                                        ";
+                            // line 194
+                            echo twig_escape_filter($this->env, $this->getAttribute($context["attachment"], "filename", array()), "html", null, true);
+                            echo "
+                                    </li>
+                                ";
+                        }
+                        $_parent = $context['_parent'];
+                        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['attachment'], $context['_parent'], $context['loop']);
+                        $context = array_intersect_key($context, $_parent) + $_parent;
+                        // line 197
+                        echo "                            </ol>
+                        </div>
+                    ";
+                    }
+                    // line 200
                     echo "                </div>
             ";
                     ++$context['loop']['index0'];
@@ -530,20 +581,20 @@ class __TwigTemplate_02949b112e3576d7ee6b29a8196cfdfb4b5b816fa4a6004323be2fbe5db
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['message'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 180
+                // line 202
                 echo "        ";
             }
-            // line 181
+            // line 203
             echo "    ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['name'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
         
-        $__internal_0d14351f81f36a3834be03dd1d97d2fcc8cd9b7ec26acbf2cc203d28a8bd2089->leave($__internal_0d14351f81f36a3834be03dd1d97d2fcc8cd9b7ec26acbf2cc203d28a8bd2089_prof);
+        $__internal_7f42ae3bd619ec7d2aa8edeee36c1cbe46e90c104fd0b847c1df9e20a42907f2->leave($__internal_7f42ae3bd619ec7d2aa8edeee36c1cbe46e90c104fd0b847c1df9e20a42907f2_prof);
 
         
-        $__internal_36115f7b05bc22177950a47c4327145799f8cd2027975ff63a4c54665781ab6c->leave($__internal_36115f7b05bc22177950a47c4327145799f8cd2027975ff63a4c54665781ab6c_prof);
+        $__internal_d4e7afd26f102acf397638222b5e45e6531008558f5ef30af6a5eea25f5ea310->leave($__internal_d4e7afd26f102acf397638222b5e45e6531008558f5ef30af6a5eea25f5ea310_prof);
 
     }
 
@@ -559,7 +610,7 @@ class __TwigTemplate_02949b112e3576d7ee6b29a8196cfdfb4b5b816fa4a6004323be2fbe5db
 
     public function getDebugInfo()
     {
-        return array (  537 => 181,  534 => 180,  519 => 178,  510 => 175,  507 => 173,  504 => 171,  502 => 170,  498 => 168,  495 => 167,  490 => 166,  485 => 163,  482 => 161,  479 => 159,  477 => 158,  470 => 152,  464 => 151,  460 => 150,  454 => 146,  450 => 144,  444 => 142,  441 => 141,  423 => 140,  417 => 136,  415 => 135,  412 => 134,  406 => 131,  402 => 130,  399 => 129,  396 => 128,  392 => 127,  389 => 126,  385 => 124,  374 => 121,  370 => 120,  367 => 119,  363 => 118,  360 => 117,  355 => 114,  346 => 111,  342 => 110,  338 => 109,  334 => 108,  331 => 107,  327 => 106,  315 => 96,  313 => 95,  310 => 94,  304 => 90,  302 => 89,  297 => 86,  285 => 76,  283 => 75,  280 => 74,  277 => 73,  268 => 72,  257 => 69,  251 => 66,  248 => 65,  246 => 64,  242 => 62,  236 => 60,  232 => 58,  230 => 57,  226 => 56,  223 => 55,  220 => 54,  211 => 53,  198 => 49,  195 => 48,  192 => 47,  189 => 46,  180 => 43,  176 => 42,  172 => 41,  169 => 40,  164 => 39,  161 => 38,  147 => 37,  143 => 35,  141 => 34,  135 => 31,  128 => 27,  124 => 26,  121 => 25,  103 => 24,  101 => 23,  95 => 20,  91 => 18,  89 => 17,  86 => 16,  83 => 15,  78 => 13,  73 => 12,  68 => 10,  65 => 9,  62 => 8,  59 => 7,  57 => 6,  54 => 5,  51 => 4,  42 => 3,  11 => 1,);
+        return array (  588 => 203,  585 => 202,  570 => 200,  565 => 197,  556 => 194,  552 => 192,  548 => 191,  543 => 188,  539 => 186,  533 => 184,  531 => 183,  527 => 181,  524 => 180,  522 => 179,  519 => 178,  510 => 175,  507 => 173,  504 => 171,  502 => 170,  498 => 168,  495 => 167,  490 => 166,  485 => 163,  482 => 161,  479 => 159,  477 => 158,  470 => 152,  464 => 151,  460 => 150,  454 => 146,  450 => 144,  444 => 142,  441 => 141,  423 => 140,  417 => 136,  415 => 135,  412 => 134,  406 => 131,  402 => 130,  399 => 129,  396 => 128,  392 => 127,  389 => 126,  385 => 124,  374 => 121,  370 => 120,  367 => 119,  363 => 118,  360 => 117,  355 => 114,  346 => 111,  342 => 110,  338 => 109,  334 => 108,  331 => 107,  327 => 106,  315 => 96,  313 => 95,  310 => 94,  304 => 90,  302 => 89,  297 => 86,  285 => 76,  283 => 75,  280 => 74,  277 => 73,  268 => 72,  257 => 69,  251 => 66,  248 => 65,  246 => 64,  242 => 62,  236 => 60,  232 => 58,  230 => 57,  226 => 56,  223 => 55,  220 => 54,  211 => 53,  198 => 49,  195 => 48,  192 => 47,  189 => 46,  180 => 43,  176 => 42,  172 => 41,  169 => 40,  164 => 39,  161 => 38,  147 => 37,  143 => 35,  141 => 34,  135 => 31,  128 => 27,  124 => 26,  121 => 25,  103 => 24,  101 => 23,  95 => 20,  91 => 18,  89 => 17,  86 => 16,  83 => 15,  78 => 13,  73 => 12,  68 => 10,  65 => 9,  62 => 8,  59 => 7,  57 => 6,  54 => 5,  51 => 4,  42 => 3,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -749,6 +800,28 @@ class __TwigTemplate_02949b112e3576d7ee6b29a8196cfdfb4b5b816fa4a6004323be2fbe5db
                             </pre>
                         </div>
                     {% endfor %}
+
+                    {% set attachments = collector.extractAttachments(message) %}
+                    {% if attachments %}
+                        <div class=\"card-block\">
+                            <span class=\"label\">
+                                {% if attachments|length > 1 %}
+                                    {{ attachments|length }} Attachments
+                                {% else %}
+                                    1 Attachment
+                                {% endif %}
+                            </span>
+
+                            <ol>
+                                {% for attachment in attachments %}
+                                    <li>
+                                        Filename:
+                                        {{ attachment.filename }}
+                                    </li>
+                                {% endfor %}
+                            </ol>
+                        </div>
+                    {% endif %}
                 </div>
             {% endfor %}
         {% endif %}

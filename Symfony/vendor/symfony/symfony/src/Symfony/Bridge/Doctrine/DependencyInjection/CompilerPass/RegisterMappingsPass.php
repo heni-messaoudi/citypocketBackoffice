@@ -104,7 +104,7 @@ abstract class RegisterMappingsPass implements CompilerPassInterface
      * is used, the others skipped.
      *
      * The $aliasMap parameter can be used to define bundle namespace shortcuts like the
-     * DoctrineBundle provides automatically for objects in the default Entity/Document folder.
+     * DoctrineBundle provides automatically for objects in the default EntitysControlers/Document folder.
      *
      * @param Definition|Reference $driver                  Driver DI definition or reference
      * @param string[]             $namespaces              List of namespaces handled by $driver

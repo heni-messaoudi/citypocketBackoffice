@@ -362,8 +362,8 @@ class Transaction
      *     Configuration Options
      *
      *     @type string $className The name of the class to return results as.
-     *           Must be a subclass of {@see Google\Cloud\Datastore\Entity}.
-     *           If not set, {@see Google\Cloud\Datastore\Entity} will be used.
+     *           Must be a subclass of {@see Google\Cloud\Datastore\EntitysControlers}.
+     *           If not set, {@see Google\Cloud\Datastore\EntitysControlers} will be used.
      * }
      * @return Entity|null
      */
@@ -398,17 +398,17 @@ class Transaction
      *     Configuration Options
      *
      *     @type string|array $className If a string, the name of the class to return results as.
-     *           Must be a subclass of {@see Google\Cloud\Datastore\Entity}.
-     *           If not set, {@see Google\Cloud\Datastore\Entity} will be used.
+     *           Must be a subclass of {@see Google\Cloud\Datastore\EntitysControlers}.
+     *           If not set, {@see Google\Cloud\Datastore\EntitysControlers} will be used.
      *           If an array is given, it must be an associative array, where
      *           the key is a Kind and the value is the name of a subclass of
-     *           {@see Google\Cloud\Datastore\Entity}.
+     *           {@see Google\Cloud\Datastore\EntitysControlers}.
      *     @type bool $sort If set to true, results in each set will be sorted
      *           to match the order given in $keys. **Defaults to** `false`.
      * }
      * @return array Returns an array with keys [`found`, `missing`, and `deferred`].
      *         Members of `found` will be instance of
-     *         {@see Google\Cloud\Datastore\Entity}. Members of `missing` and
+     *         {@see Google\Cloud\Datastore\EntitysControlers}. Members of `missing` and
      *         `deferred` will be instance of {@see Google\Cloud\Datastore\Key}.
      */
     public function lookupBatch(array $keys, array $options = [])
@@ -435,10 +435,10 @@ class Transaction
      *     Configuration Options
      *
      *     @type string $className The name of the class to return results as.
-     *           Must be a subclass of {@see Google\Cloud\Datastore\Entity}.
-     *           If not set, {@see Google\Cloud\Datastore\Entity} will be used.
+     *           Must be a subclass of {@see Google\Cloud\Datastore\EntitysControlers}.
+     *           If not set, {@see Google\Cloud\Datastore\EntitysControlers} will be used.
      * }
-     * @return \Generator<Google\Cloud\Datastore\Entity>
+     * @return \Generator<Google\Cloud\Datastore\EntitysControlers>
      */
     public function runQuery(QueryInterface $query, array $options = [])
     {

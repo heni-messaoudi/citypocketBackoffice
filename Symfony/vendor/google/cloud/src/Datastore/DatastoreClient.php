@@ -255,8 +255,8 @@ class DatastoreClient
      * requires a complex key elementPath, you must create the key separately.
      *
      * In complex applications you may want to create your own entity types.
-     * Google Cloud PHP supports subclassing of {@see Google\Cloud\Datastore\Entity}.
-     * If the name of a subclass of Entity is given in the options array, an
+     * Google Cloud PHP supports subclassing of {@see Google\Cloud\Datastore\EntitysControlers}.
+     * If the name of a subclass of EntitysControlers is given in the options array, an
      * entity will be created with that class rather than the default class.
      *
      * Example:
@@ -270,7 +270,7 @@ class DatastoreClient
      *
      * ```
      * //[snippet=array]
-     * // Entity values can be assigned and accessed via the array syntax.
+     * // EntitysControlers values can be assigned and accessed via the array syntax.
      * $entity = $datastore->entity($key);
      *
      * $entity['firstName'] = 'Bob';
@@ -279,7 +279,7 @@ class DatastoreClient
      *
      * ```
      * //[snippet=object_accessor]
-     * // Entity values can also be assigned and accessed via an object syntax.
+     * // EntitysControlers values can also be assigned and accessed via an object syntax.
      * $entity = $datastore->entity($key);
      *
      * $entity->firstName = 'Bob';
@@ -294,8 +294,8 @@ class DatastoreClient
      *
      * ```
      * //[snippet=custom_class]
-     * // Entities can be custom classes extending the built-in Entity class.
-     * class Person extends Google\Cloud\Datastore\Entity
+     * // Entities can be custom classes extending the built-in EntitysControlers class.
+     * class Person extends Google\Cloud\Datastore\EntitysControlers
      * {}
      *
      * $person = $datastore->entity('Person', [ 'firstName' => 'Bob'], [
@@ -320,16 +320,16 @@ class DatastoreClient
      * ]);
      * ```
      *
-     * @see https://cloud.google.com/datastore/reference/rest/v1/Entity Entity
+     * @see https://cloud.google.com/datastore/reference/rest/v1/Entity EntitysControlers
      *
      * @param Key|string $key The key used to identify the record, or a string $kind.
      * @param array $entity [optional] The data to fill the entity with.
      * @param array $options [optional] {
      *     Configuration Options
      *
-     *     @type string $className The name of a class extending {@see Google\Cloud\Datastore\Entity}.
-     *           If provided, an instance of that class will be returned instead of Entity.
-     *           If not set, {@see Google\Cloud\Datastore\Entity} will be used.
+     *     @type string $className The name of a class extending {@see Google\Cloud\Datastore\EntitysControlers}.
+     *           If provided, an instance of that class will be returned instead of EntitysControlers.
+     *           If not set, {@see Google\Cloud\Datastore\EntitysControlers} will be used.
      *     @type array $excludeFromIndexes A list of entity keys to exclude from
      *           datastore indexes.
      * }
@@ -797,8 +797,8 @@ class DatastoreClient
      *     @type string $readConsistency See
      *           [ReadConsistency](https://cloud.google.com/datastore/reference/rest/v1/ReadOptions#ReadConsistency).
      *     @type string $className The name of the class to return results as.
-     *           Must be a subclass of {@see Google\Cloud\Datastore\Entity}.
-     *           If not set, {@see Google\Cloud\Datastore\Entity} will be used.
+     *           Must be a subclass of {@see Google\Cloud\Datastore\EntitysControlers}.
+     *           If not set, {@see Google\Cloud\Datastore\EntitysControlers} will be used.
      * }
      * @return Entity|null
      */
@@ -838,17 +838,17 @@ class DatastoreClient
      *     @type string $readConsistency See
      *           [ReadConsistency](https://cloud.google.com/datastore/reference/rest/v1/ReadOptions#ReadConsistency).
      *     @type string|array $className If a string, the name of the class to return results as.
-     *           Must be a subclass of {@see Google\Cloud\Datastore\Entity}.
-     *           If not set, {@see Google\Cloud\Datastore\Entity} will be used.
+     *           Must be a subclass of {@see Google\Cloud\Datastore\EntitysControlers}.
+     *           If not set, {@see Google\Cloud\Datastore\EntitysControlers} will be used.
      *           If an array is given, it must be an associative array, where
      *           the key is a Kind and the value is the name of a subclass of
-     *           {@see Google\Cloud\Datastore\Entity}.
+     *           {@see Google\Cloud\Datastore\EntitysControlers}.
      *     @type bool $sort If set to true, results in each set will be sorted
      *           to match the order given in $keys. **Defaults to** `false`.
      * }
      * @return array Returns an array with keys [`found`, `missing`, and `deferred`].
      *         Members of `found` will be instance of
-     *         {@see Google\Cloud\Datastore\Entity}. Members of `missing` and
+     *         {@see Google\Cloud\Datastore\EntitysControlers}. Members of `missing` and
      *         `deferred` will be instance of {@see Google\Cloud\Datastore\Key}.
      */
     public function lookupBatch(array $keys, array $options = [])
@@ -954,12 +954,12 @@ class DatastoreClient
      *     Configuration Options
      *
      *     @type string $className The name of the class to return results as.
-     *           Must be a subclass of {@see Google\Cloud\Datastore\Entity}.
-     *           If not set, {@see Google\Cloud\Datastore\Entity} will be used.
+     *           Must be a subclass of {@see Google\Cloud\Datastore\EntitysControlers}.
+     *           If not set, {@see Google\Cloud\Datastore\EntitysControlers} will be used.
      *     @type string $readConsistency See
      *           [ReadConsistency](https://cloud.google.com/datastore/reference/rest/v1/ReadOptions#ReadConsistency).
      * }
-     * @return \Generator<Google\Cloud\Datastore\Entity>
+     * @return \Generator<Google\Cloud\Datastore\EntitysControlers>
      */
     public function runQuery(QueryInterface $query, array $options = [])
     {
