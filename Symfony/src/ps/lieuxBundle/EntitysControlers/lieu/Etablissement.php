@@ -77,6 +77,11 @@ class Etablissement
      * @var string
      *
      * @ORM\Column(name="numtel", type="string", length=255, nullable=true)
+     * @Assert\Regex(
+     *     pattern="/[a-zA-Z]/",
+     *     match=false,
+     *     message="Ce champs doit contenir que des nombres ou bien +"
+     * )
      *
      */
     private $numtel;

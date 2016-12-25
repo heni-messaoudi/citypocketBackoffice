@@ -36,13 +36,9 @@ class EtablissementType extends AbstractType
             ->add('longitude', TextType::class)
             ->add('presentation', TextareaType::class, array('required' => false))
             ->add('adresse', TextType::class)
-            ->add('numtel', PhoneNumberType::class, array('required' => false,
-                'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE,
-                'country_choices' => $numCodeList,
-                'invalid_message' => 'Numéro de téléphone invalide',
-                'preferred_country_choices' => array('GA')))
+            ->add('numtel', TextareaType::class, array('required' => false))
             ->add('email', TextType::class, array('required' => false))
-            ->add('Ajouter', SubmitType::class);
+            ->add('Valider', SubmitType::class);
     }
 
     /**

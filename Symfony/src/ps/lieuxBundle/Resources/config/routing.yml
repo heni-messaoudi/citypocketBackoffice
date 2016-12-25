@@ -17,3 +17,7 @@ delete:
 create:
     path:     /etab/create/
     defaults: { _controller: pslieuxBundle:lieu:create }
+
+edit:
+    path:     /etab/edit/{id}
+    defaults: { _controller: pslieuxBundle:lieu:edit }

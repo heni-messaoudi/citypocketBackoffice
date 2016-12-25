@@ -62,7 +62,6 @@ class lieuController extends Controller
         $etab = new Etablissement();
         $form = $this->createForm(EtablissementType::class, $etab);
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $etabcloudControler->transformNumtel($etab);
             $idEtab = $etabcloudControler->addEtablissement($etab);
             return $this->redirectToRoute('get', array('id' => $idEtab));
         }
@@ -70,8 +69,33 @@ class lieuController extends Controller
         return $this->render('pslieuxBundle:lieu:form.html.twig', array(
                 'categories' => $categorieBuilder->getCategories(),
                 'action' => 'Ajout',
-                'form' => $form->createView())
+                'form' => $form->createView(),
+            )
         );
+    }
+
+    public function editAction(Request $request, $id)
+    {
+        $categorieBuilder = new Categorie();
+        $etabcloudControler = new EtablissementModel($this->container);
+        $etab = $etabcloudControler->getEtablissement($id);
+        if (!$etab)
+            return new Response('', Response::HTTP_NOT_FOUND);
+        $desc = $etab['desc'];
+        $etab = $etab['etab'];
+        $etablissement = $etabcloudControler->transformEtab($etab,$desc);
+        $form = $this->createForm(EtablissementType::class, $etablissement);
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $etabcloudControler->editEtablissement($etab,$desc,$etablissement);
+            return $this->redirectToRoute('get', array('id' => $id));
+        }
+        return $this->render('pslieuxBundle:lieu:form.html.twig', array(
+            'categories' => $categorieBuilder->getCategories(),
+            'action' => 'Modification',
+            'form' => $form->createView(),
+        ));
+
+
     }
 
 }

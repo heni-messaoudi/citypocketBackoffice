@@ -3,7 +3,9 @@
 namespace ps\lieuxBundle\CloudControlers;
 
 use Google\Cloud\Datastore\DatastoreClient;
+use libphonenumber\PhoneNumberUtil;
 use ps\lieuxBundle\EntitysControlers\lieu\Etablissement;
+use libphonenumber\PhoneNumber;
 
 class EtablissementModel
 {
@@ -53,7 +55,9 @@ class EtablissementModel
             $etab = $entity->get();
             $etab['id'] = $entity->key()->pathEndIdentifier();
             $etab['categorie'] = $etab['categorie']->pathEndIdentifier();
-            $desc = $this->datastore->lookup($etab['description'])->get();
+            $descentity = $this->datastore->lookup($etab['description']);
+            $desc = $descentity->get();
+            $desc['id'] = $descentity->key()->pathEndIdentifier();
             return ['etab' => $etab, 'desc' => $desc];
         }
         return false;
@@ -73,14 +77,6 @@ class EtablissementModel
         return false;
     }
 
-    public function transformNumtel(Etablissement $etab)
-    {
-        $res = $etab->getNumtel();
-        $changes = array(":", "Code", "National", "Number", " ");
-        $res = str_replace($changes, "", $res);
-        $res = str_replace("Country", "+", $res);
-        $etab->setNumtel($res);
-    }
 
     public function getDescrFromEtab(Etablissement $etab)
     {
@@ -88,10 +84,7 @@ class EtablissementModel
         $descr['adresse'] = $etab->getAdresse();
         $descr['email'] = $etab->getEmail();
         $descr['presentation'] = $etab->getPresentation();
-        if ($etab->getNumtel() != '')
-            $descr['numTel'] = $etab->getNumtel();
-        else
-            $descr['numTel'] = null;
+        $descr['numTel'] = $etab->getNumtel();
         return $descr;
     }
 
@@ -120,11 +113,70 @@ class EtablissementModel
     {
         $categorie = $this->datastore->key('Categorie', $etab->getCategorie());
         $desc = $this->insertDescr($etab);
-        $newEtablissement = $this->getEtabFromEtab($etab,$desc,$categorie);
+        $newEtablissement = $this->getEtabFromEtab($etab, $desc, $categorie);
         $key = $this->datastore->key('Etablissement');
         $entity = $this->datastore->entity($key, $newEtablissement);
         $this->datastore->insert($entity);
         return $entity->key()->pathEndIdentifier();
+    }
+
+    public function transformEtab($etab, $descr)
+    {
+        $etablissement = new Etablissement();
+        if ($descr['numTel'] != null)
+            $etablissement->setNumtel($descr['numTel']);
+        else
+            $etablissement->setNumtel(null);
+        if ($descr['adresse'] != null)
+            $etablissement->setAdresse($descr['adresse']);
+        else
+            $etablissement->setAdresse(null);
+        if ($descr['email'] != null)
+            $etablissement->setEmail($descr['email']);
+        else
+            $etablissement->setEmail(null);
+        if ($descr['presentation'] != null)
+            $etablissement->setPresentation($descr['presentation']);
+        else
+            $etablissement->setPresentation(null);
+        $etablissement->setCategorie($etab['categorie']);
+        $etablissement->setLatitude($etab['latitude']);
+        $etablissement->setLongitude($etab['longitude']);
+        $etablissement->setNom($etab['nom']);
+        return $etablissement;
+    }
+
+    public function updateDesc($desc, $etablissement)
+    {
+        $transaction = $this->datastore->transaction();
+        $key = $this->datastore->key('Description', $desc['id']);
+        $desc = $this->getDescrFromEtab($etablissement);
+        $entity = $this->datastore->entity($key, $desc);
+        $transaction->upsert($entity);
+        $transaction->commit();
+        return $key;
+    }
+
+    public function updateEtab($etab, $etablissement, $keydesc)
+    {
+        $transaction = $this->datastore->transaction();
+        $key = $this->datastore->key('Etablissement', $etab['id']);
+        unset($etab['id']);
+        $etab['nom'] = $etablissement->getNom();
+        $etab['longitude'] = $etablissement->getLongitude();
+        $etab['latitude'] = $etablissement->getLatitude();
+        $categorie = $this->datastore->key('Categorie', $etablissement->getCategorie());
+        $etab['categorie'] = $categorie;
+        $etab['description'] = $keydesc;
+        $entity = $this->datastore->entity($key, $etab);
+        $transaction->upsert($entity);
+        $transaction->commit();
+    }
+
+    public function editEtablissement($etab, $desc, $etablissement)
+    {
+        $key = $this->updateDesc($desc, $etablissement);
+        $this->updateEtab($etab, $etablissement, $key);
     }
 
 

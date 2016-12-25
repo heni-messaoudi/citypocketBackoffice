@@ -1,6 +1,7 @@
 <?php
 
 namespace ps\lieuxBundle\MyClassUtil;
+
 class CountryIsoCode
 {
     private $countries = array
@@ -263,6 +264,6 @@ class CountryIsoCode
     {
         return $this->countries;
     }
-    
+
 
 }

@@ -12,6 +12,7 @@
             <tr class="danger">
                 <th></th>
                 <th></th>
+                <th></th>
                 <th>nom</th>
                 <th>categorie</th>
                 <th>latitude</th>
@@ -29,6 +30,11 @@
                     <td>
                         <a href="{{ path('delete', {'id' : lieu.id }) }}">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('edit', {'id' : lieu.id }) }}">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </a>
                     </td>
                     <td>{{ lieu.nom }}</td>
