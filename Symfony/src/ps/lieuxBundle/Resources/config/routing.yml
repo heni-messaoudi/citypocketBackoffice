@@ -3,21 +3,32 @@ index:
     defaults: { _controller: pslieuxBundle:lieu:index }
 
 list:
-    path:     /list
+    path:     /lieu/list
     defaults: { _controller: pslieuxBundle:lieu:list }
 
 get:
-    path:     /etab/{id}
+    path:     /lieu/{id}
     defaults: { _controller: pslieuxBundle:lieu:get }
 
 delete:
-    path:     /etab/delete/{id}
+    path:     /lieu/delete/{id}
     defaults: { _controller: pslieuxBundle:lieu:delete }
 
 create:
-    path:     /etab/create/
+    path:     /lieu/create/
     defaults: { _controller: pslieuxBundle:lieu:create }
 
 edit:
-    path:     /etab/edit/{id}
+    path:     /lieu/edit/{id}
     defaults: { _controller: pslieuxBundle:lieu:edit }
+
+login:
+    path: /login
+    defaults:
+        _controller: pslieuxBundle:lieu:login
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout

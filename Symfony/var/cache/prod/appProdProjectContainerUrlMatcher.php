@@ -36,34 +36,58 @@ class appProdProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBundle\R
             return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::indexAction',  '_route' => 'index',);
         }
 
-        // list
-        if ($pathinfo === '/list') {
-            return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::listAction',  '_route' => 'list',);
-        }
-
-        if (0 === strpos($pathinfo, '/etab')) {
-            // get
-            if (preg_match('#^/etab/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'get')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::getAction',));
-            }
-
-            // delete
-            if (0 === strpos($pathinfo, '/etab/delete') && preg_match('#^/etab/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'delete')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::deleteAction',));
-            }
-
-            // create
-            if (rtrim($pathinfo, '/') === '/etab/create') {
-                if (substr($pathinfo, -1) !== '/') {
-                    return $this->redirect($pathinfo.'/', 'create');
+        if (0 === strpos($pathinfo, '/l')) {
+            if (0 === strpos($pathinfo, '/lieu')) {
+                // list
+                if ($pathinfo === '/lieu/list') {
+                    return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::listAction',  '_route' => 'list',);
                 }
 
-                return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::createAction',  '_route' => 'create',);
+                // get
+                if (preg_match('#^/lieu/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'get')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::getAction',));
+                }
+
+                // delete
+                if (0 === strpos($pathinfo, '/lieu/delete') && preg_match('#^/lieu/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'delete')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::deleteAction',));
+                }
+
+                // create
+                if (rtrim($pathinfo, '/') === '/lieu/create') {
+                    if (substr($pathinfo, -1) !== '/') {
+                        return $this->redirect($pathinfo.'/', 'create');
+                    }
+
+                    return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::createAction',  '_route' => 'create',);
+                }
+
+                // edit
+                if (0 === strpos($pathinfo, '/lieu/edit') && preg_match('#^/lieu/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'edit')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::editAction',));
+                }
+
             }
 
-            // edit
-            if (0 === strpos($pathinfo, '/etab/edit') && preg_match('#^/etab/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'edit')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::editAction',));
+            if (0 === strpos($pathinfo, '/log')) {
+                if (0 === strpos($pathinfo, '/login')) {
+                    // login
+                    if ($pathinfo === '/login') {
+                        return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::loginAction',  '_route' => 'login',);
+                    }
+
+                    // login_check
+                    if ($pathinfo === '/login_check') {
+                        return array('_route' => 'login_check');
+                    }
+
+                }
+
+                // logout
+                if ($pathinfo === '/logout') {
+                    return array('_route' => 'logout');
+                }
+
             }
 
         }

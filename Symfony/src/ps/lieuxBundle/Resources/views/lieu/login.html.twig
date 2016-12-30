@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>CityPocket</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% stylesheets filter='cssrewrite, scssphp'
+    'css/*' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
+    {% endstylesheets %}
+</head>
+<body>
+{% if error %}
+    <div class="alert alert-danger">
+        Veuillez vérifier vos identifiants
+    </div>
+{% endif %}
+<header class="myheader">
+    {% image 'img/cplogo.png'%}
+    <img class="imglogocenter img-responsive" src="{{ asset_url }}" />
+    {% endimage %}
+</header>
+<div class="row">
+    <div class="col-md-offset-4 col-md-4">
+        <div class="form-login">
+            <h4>Connexion</h4>
+            <form action="{{ path('login_check') }}" method="post">
+                <input required="required" type="text" id="username" name="_username" value="{{ last_username }}"
+                       placeholder="Email"
+                       class="form-control input-sm chat-input"/>
+                </br>
+                <input required="required" type="password" id="password" name="_password"
+                       class="form-control input-sm chat-input"
+                       placeholder="Mot de passe"/>
+                </br>
+                <div class="wrapper">
+                    <button class="btn btn-primary btn-md" type="submit">
+                        <span class="glyphicon glyphicon-log-in"></span>
+                        Valider
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+{% javascripts filter='jsqueeze'
+'js/*' %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+</body>
+</html>

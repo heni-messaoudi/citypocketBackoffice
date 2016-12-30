@@ -7,6 +7,10 @@
 {% endblock %}
 
 {% block content %}
-    <h3>{{ action }} d'un lieu</h3>
+    {% stylesheets filter='cssrewrite, scssphp'
+    'css/description.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
+    {% endstylesheets %}
+    <h3 class="desctitle">{{ action }} d'un lieu</h3></br></br>
     {{ form(form) }}
 {% endblock %}

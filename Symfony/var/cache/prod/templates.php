@@ -84,6 +84,7 @@
   'MisdPhoneNumberBundle:Form:tel_widget.html.php' => __DIR__.'/../../../vendor/misd/phone-number-bundle/Resources/views/Form/tel_widget.html.php',
   'pslieuxBundle:lieu:form.html.twig' => __DIR__.'/../../../src/ps/lieuxBundle/Resources/views/lieu/form.html.twig',
   'pslieuxBundle:lieu:list.html.twig' => __DIR__.'/../../../src/ps/lieuxBundle/Resources/views/lieu/list.html.twig',
+  'pslieuxBundle:lieu:login.html.twig' => __DIR__.'/../../../src/ps/lieuxBundle/Resources/views/lieu/login.html.twig',
   'pslieuxBundle:lieu:view.html.twig' => __DIR__.'/../../../src/ps/lieuxBundle/Resources/views/lieu/view.html.twig',
   '::base.html.twig' => __DIR__.'/../../../app/Resources/views/base.html.twig',
   ':default:index.html.twig' => __DIR__.'/../../../app/Resources/views/default/index.html.twig',

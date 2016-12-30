@@ -27,6 +27,126 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
         $context = $this->context;
         $request = $this->request;
 
+        if (0 === strpos($pathinfo, '/css')) {
+            if (0 === strpos($pathinfo, '/css/f3b6057')) {
+                // _assetic_f3b6057
+                if ($pathinfo === '/css/f3b6057.css') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'f3b6057',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_f3b6057',);
+                }
+
+                // _assetic_f3b6057_0
+                if ($pathinfo === '/css/f3b6057_description_1.css') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'f3b6057',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_f3b6057_0',);
+                }
+
+            }
+
+            if (0 === strpos($pathinfo, '/css/40e784b')) {
+                // _assetic_40e784b
+                if ($pathinfo === '/css/40e784b.css') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => '40e784b',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_40e784b',);
+                }
+
+                // _assetic_40e784b_0
+                if ($pathinfo === '/css/40e784b_mytable_1.css') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => '40e784b',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_40e784b_0',);
+                }
+
+            }
+
+            if (0 === strpos($pathinfo, '/css/b73ea08')) {
+                // _assetic_b73ea08
+                if ($pathinfo === '/css/b73ea08.css') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'b73ea08',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_b73ea08',);
+                }
+
+                if (0 === strpos($pathinfo, '/css/b73ea08_part_1_')) {
+                    if (0 === strpos($pathinfo, '/css/b73ea08_part_1_bootstrap')) {
+                        // _assetic_b73ea08_0
+                        if ($pathinfo === '/css/b73ea08_part_1_bootstrap-theme.min_1.css') {
+                            return array (  '_controller' => 'assetic.controller:render',  'name' => 'b73ea08',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_b73ea08_0',);
+                        }
+
+                        // _assetic_b73ea08_1
+                        if ($pathinfo === '/css/b73ea08_part_1_bootstrap.min_2.css') {
+                            return array (  '_controller' => 'assetic.controller:render',  'name' => 'b73ea08',  'pos' => 1,  '_format' => 'css',  '_route' => '_assetic_b73ea08_1',);
+                        }
+
+                    }
+
+                    // _assetic_b73ea08_2
+                    if ($pathinfo === '/css/b73ea08_part_1_description_3.css') {
+                        return array (  '_controller' => 'assetic.controller:render',  'name' => 'b73ea08',  'pos' => 2,  '_format' => 'css',  '_route' => '_assetic_b73ea08_2',);
+                    }
+
+                    // _assetic_b73ea08_3
+                    if ($pathinfo === '/css/b73ea08_part_1_font-awesome_4.css') {
+                        return array (  '_controller' => 'assetic.controller:render',  'name' => 'b73ea08',  'pos' => 3,  '_format' => 'css',  '_route' => '_assetic_b73ea08_3',);
+                    }
+
+                    // _assetic_b73ea08_4
+                    if ($pathinfo === '/css/b73ea08_part_1_login_5.css') {
+                        return array (  '_controller' => 'assetic.controller:render',  'name' => 'b73ea08',  'pos' => 4,  '_format' => 'css',  '_route' => '_assetic_b73ea08_4',);
+                    }
+
+                    // _assetic_b73ea08_5
+                    if ($pathinfo === '/css/b73ea08_part_1_mytable_6.css') {
+                        return array (  '_controller' => 'assetic.controller:render',  'name' => 'b73ea08',  'pos' => 5,  '_format' => 'css',  '_route' => '_assetic_b73ea08_5',);
+                    }
+
+                }
+
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/images/d3974a0')) {
+            // _assetic_d3974a0
+            if ($pathinfo === '/images/d3974a0.png') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'd3974a0',  'pos' => NULL,  '_format' => 'png',  '_route' => '_assetic_d3974a0',);
+            }
+
+            // _assetic_d3974a0_0
+            if ($pathinfo === '/images/d3974a0_cplogo_1.png') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => 'd3974a0',  'pos' => 0,  '_format' => 'png',  '_route' => '_assetic_d3974a0_0',);
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/js/5fbc15d')) {
+            // _assetic_5fbc15d
+            if ($pathinfo === '/js/5fbc15d.js') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => '5fbc15d',  'pos' => NULL,  '_format' => 'js',  '_route' => '_assetic_5fbc15d',);
+            }
+
+            if (0 === strpos($pathinfo, '/js/5fbc15d_part_1_')) {
+                // _assetic_5fbc15d_0
+                if ($pathinfo === '/js/5fbc15d_part_1_bootstrap.min_1.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => '5fbc15d',  'pos' => 0,  '_format' => 'js',  '_route' => '_assetic_5fbc15d_0',);
+                }
+
+                // _assetic_5fbc15d_1
+                if ($pathinfo === '/js/5fbc15d_part_1_jquery.min_2.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => '5fbc15d',  'pos' => 1,  '_format' => 'js',  '_route' => '_assetic_5fbc15d_1',);
+                }
+
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/css/50cb29f')) {
+            // _assetic_50cb29f
+            if ($pathinfo === '/css/50cb29f.css') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => '50cb29f',  'pos' => NULL,  '_format' => 'css',  '_route' => '_assetic_50cb29f',);
+            }
+
+            // _assetic_50cb29f_0
+            if ($pathinfo === '/css/50cb29f_bootstrap.min_1.css') {
+                return array (  '_controller' => 'assetic.controller:render',  'name' => '50cb29f',  'pos' => 0,  '_format' => 'css',  '_route' => '_assetic_50cb29f_0',);
+            }
+
+        }
+
         if (0 === strpos($pathinfo, '/_')) {
             // _wdt
             if (0 === strpos($pathinfo, '/_wdt') && preg_match('#^/_wdt/(?P<token>[^/]++)$#s', $pathinfo, $matches)) {
@@ -114,34 +234,58 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::indexAction',  '_route' => 'index',);
         }
 
-        // list
-        if ($pathinfo === '/list') {
-            return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::listAction',  '_route' => 'list',);
-        }
-
-        if (0 === strpos($pathinfo, '/etab')) {
-            // get
-            if (preg_match('#^/etab/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'get')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::getAction',));
-            }
-
-            // delete
-            if (0 === strpos($pathinfo, '/etab/delete') && preg_match('#^/etab/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'delete')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::deleteAction',));
-            }
-
-            // create
-            if (rtrim($pathinfo, '/') === '/etab/create') {
-                if (substr($pathinfo, -1) !== '/') {
-                    return $this->redirect($pathinfo.'/', 'create');
+        if (0 === strpos($pathinfo, '/l')) {
+            if (0 === strpos($pathinfo, '/lieu')) {
+                // list
+                if ($pathinfo === '/lieu/list') {
+                    return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::listAction',  '_route' => 'list',);
                 }
 
-                return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::createAction',  '_route' => 'create',);
+                // get
+                if (preg_match('#^/lieu/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'get')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::getAction',));
+                }
+
+                // delete
+                if (0 === strpos($pathinfo, '/lieu/delete') && preg_match('#^/lieu/delete/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'delete')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::deleteAction',));
+                }
+
+                // create
+                if (rtrim($pathinfo, '/') === '/lieu/create') {
+                    if (substr($pathinfo, -1) !== '/') {
+                        return $this->redirect($pathinfo.'/', 'create');
+                    }
+
+                    return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::createAction',  '_route' => 'create',);
+                }
+
+                // edit
+                if (0 === strpos($pathinfo, '/lieu/edit') && preg_match('#^/lieu/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'edit')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::editAction',));
+                }
+
             }
 
-            // edit
-            if (0 === strpos($pathinfo, '/etab/edit') && preg_match('#^/etab/edit/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'edit')), array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::editAction',));
+            if (0 === strpos($pathinfo, '/log')) {
+                if (0 === strpos($pathinfo, '/login')) {
+                    // login
+                    if ($pathinfo === '/login') {
+                        return array (  '_controller' => 'ps\\lieuxBundle\\Controller\\lieuController::loginAction',  '_route' => 'login',);
+                    }
+
+                    // login_check
+                    if ($pathinfo === '/login_check') {
+                        return array('_route' => 'login_check');
+                    }
+
+                }
+
+                // logout
+                if ($pathinfo === '/logout') {
+                    return array('_route' => 'logout');
+                }
+
             }
 
         }

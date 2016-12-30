@@ -7,25 +7,33 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Détails du lieu</h1>
-    <div class="media">
-        <div class="media-body">
-            <h3 class="media-heading">Nom : {{ lieu.nom }}</h3>
-            <p> Categorie : {{ lieu.categorie }}</p>
-            <p>Latitude : {{ lieu.latitude }}</p>
-            <p>Longitude : {{ lieu.longitude }}</p>
-            {% if desc.adresse is not empty %}
-                <p>Adresse : {{ desc.adresse }}</p>
-            {% endif %}
-            {% if desc.email is not empty %}
-                <p>Email : {{ desc.email }}</p>
-            {% endif %}
-            {% if desc.numTel is not empty %}
-                <p>NumTél : {{ desc.numTel }}</p>
-            {% endif %}
-            {% if desc.presentation is not empty %}
-                <p>Présentation : {{ desc.presentation }}</p>
-            {% endif %}
-        </div>
-    </div>
+    {% stylesheets filter='cssrewrite, scssphp'
+    'css/description.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
+    {% endstylesheets %}
+    <h1 class="text-center lieutitle">{{ lieu.nom }}</h1>
+    </br></br>
+    <h4><span class="desctitle">Categorie:</span> <span> {{ lieu.categorie }}</h4>
+    <h4><span class="desctitle">Latitude :</span> <span> {{ lieu.latitude }}</h4>
+    <h4><span class="desctitle">Longitude :</span> <span> {{ lieu.longitude }}</h4>
+    {% if desc.adresse is not empty %}
+        <h4><span class="desctitle">Adresse :</span> <span>{{ desc.adresse }}</span></h4>
+    {% endif %}
+    {% if desc.email is not empty %}
+        <h4><span class="desctitle">Email :</span> <span> {{ desc.email }}</span></h4>
+    {% endif %}
+    {% if desc.numTel is not empty %}
+        <h4><span class="desctitle">NumTél :</span> <span> {{ desc.numTel }}</span></h4>
+    {% endif %}
+    {% if desc.presentation is not empty %}
+        <h4><span class="desctitle">Présentation :</span> <span> {{ desc.presentation }}</span></h4>
+    {% endif %}
+    </br></br>
+    <a class="btn btn-warning btn-block" href="{{ path('edit', {'id' : lieu.id }) }}">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"> Modifier</span>
+    </a>
+    </br>
+    <a class="btn btn-danger btn-block" href="{{ path('delete', {'id' : lieu.id }) }}">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"> Supprimer</span>
+    </a>
 {% endblock %}

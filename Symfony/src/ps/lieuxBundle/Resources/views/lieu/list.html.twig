@@ -6,41 +6,39 @@
     {% endfor %}
 {% endblock %}
 {% block content %}
-    <div class="table-responsive">
-        <table class="table table-striped">
+    {% stylesheets filter='cssrewrite, scssphp'
+    'css/mytable.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
+    {% endstylesheets %}
+    <div class="wrapper">
+        <table id="acrylic">
             <thead>
-            <tr class="danger">
+            <tr>
                 <th></th>
-                <th></th>
-                <th></th>
-                <th>nom</th>
-                <th>categorie</th>
-                <th>latitude</th>
-                <th>longitude</th>
+                <th>Nom</th>
+                <th>Categorie</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
             </tr>
             </thead>
             <tbody>
             {% for lieu in lieux %}
                 <tr>
                     <td>
-                        <a href="{{ path('get', {'id' : lieu.id }) }}">
-                            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                        <a class="btn btn-success btn-sm" href="{{ path('get', {'id' : lieu.id }) }}">
+                            <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>Détails
+                        </a>
+                        <a class="btn btn-warning btn-sm" href="{{ path('edit', {'id' : lieu.id }) }}">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true">Modifier</span>
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="{{ path('delete', {'id' : lieu.id }) }}">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true">Supprimer</span>
                         </a>
                     </td>
-                    <td>
-                        <a href="{{ path('delete', {'id' : lieu.id }) }}">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ path('edit', {'id' : lieu.id }) }}">
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </a>
-                    </td>
-                    <td>{{ lieu.nom }}</td>
-                    <td>{{ lieu.categorie.pathEndIdentifier() }}</td>
-                    <td>{{ lieu.latitude }}</td>
-                    <td>{{ lieu.longitude }}</td>
+                    <td data-label="Nom">{{ lieu.nom }}</td>
+                    <td data-label="Categorie">{{ lieu.categorie.pathEndIdentifier() }}</td>
+                    <td data-label="Latitude">{{ lieu.latitude }}</td>
+                    <td data-label="Longitude">{{ lieu.longitude }}</td>
                 </tr>
             {% else %}
                 <tr>
@@ -49,18 +47,18 @@
             {% endfor %}
             </tbody>
         </table>
-        {% if next_page_token %}
-            <nav>
-                <ul class="pager">
-                    <li><a href="{{ path('list', {'page_token' : next_page_token}) }}">More</a></li>
-                </ul>
-            </nav>
-        {% else %}
-            <nav>
-                <ul class="pager">
-                    <li><a href="{{ path('list') }}">Retour vers la première page</a></li>
-                </ul>
-            </nav>
-        {% endif %}
     </div>
+    {% if next_page_token %}
+        <nav>
+            <ul class="pager">
+                <li><a href="{{ path('list', {'page_token' : next_page_token}) }}">More</a></li>
+            </ul>
+        </nav>
+    {% else %}
+        <nav>
+            <ul class="pager">
+                <li><a href="{{ path('list') }}">Retour vers la première page</a></li>
+            </ul>
+        </nav>
+    {% endif %}
 {% endblock %}

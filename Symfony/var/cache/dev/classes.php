@@ -2871,6 +2871,430 @@ return false;
 }
 }
 }
+namespace Symfony\Component\Debug
+{
+use Psr\Log\LogLevel;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Debug\Exception\ContextErrorException;
+use Symfony\Component\Debug\Exception\FatalErrorException;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
+use Symfony\Component\Debug\Exception\OutOfMemoryException;
+use Symfony\Component\Debug\Exception\SilencedErrorContext;
+use Symfony\Component\Debug\FatalErrorHandler\UndefinedFunctionFatalErrorHandler;
+use Symfony\Component\Debug\FatalErrorHandler\UndefinedMethodFatalErrorHandler;
+use Symfony\Component\Debug\FatalErrorHandler\ClassNotFoundFatalErrorHandler;
+use Symfony\Component\Debug\FatalErrorHandler\FatalErrorHandlerInterface;
+class ErrorHandler
+{
+private $levels = array(
+E_DEPRECATED =>'Deprecated',
+E_USER_DEPRECATED =>'User Deprecated',
+E_NOTICE =>'Notice',
+E_USER_NOTICE =>'User Notice',
+E_STRICT =>'Runtime Notice',
+E_WARNING =>'Warning',
+E_USER_WARNING =>'User Warning',
+E_COMPILE_WARNING =>'Compile Warning',
+E_CORE_WARNING =>'Core Warning',
+E_USER_ERROR =>'User Error',
+E_RECOVERABLE_ERROR =>'Catchable Fatal Error',
+E_COMPILE_ERROR =>'Compile Error',
+E_PARSE =>'Parse Error',
+E_ERROR =>'Error',
+E_CORE_ERROR =>'Core Error',
+);
+private $loggers = array(
+E_DEPRECATED => array(null, LogLevel::INFO),
+E_USER_DEPRECATED => array(null, LogLevel::INFO),
+E_NOTICE => array(null, LogLevel::WARNING),
+E_USER_NOTICE => array(null, LogLevel::WARNING),
+E_STRICT => array(null, LogLevel::WARNING),
+E_WARNING => array(null, LogLevel::WARNING),
+E_USER_WARNING => array(null, LogLevel::WARNING),
+E_COMPILE_WARNING => array(null, LogLevel::WARNING),
+E_CORE_WARNING => array(null, LogLevel::WARNING),
+E_USER_ERROR => array(null, LogLevel::CRITICAL),
+E_RECOVERABLE_ERROR => array(null, LogLevel::CRITICAL),
+E_COMPILE_ERROR => array(null, LogLevel::CRITICAL),
+E_PARSE => array(null, LogLevel::CRITICAL),
+E_ERROR => array(null, LogLevel::CRITICAL),
+E_CORE_ERROR => array(null, LogLevel::CRITICAL),
+);
+private $thrownErrors = 0x1FFF; private $scopedErrors = 0x1FFF; private $tracedErrors = 0x77FB; private $screamedErrors = 0x55; private $loggedErrors = 0;
+private $traceReflector;
+private $isRecursive = 0;
+private $isRoot = false;
+private $exceptionHandler;
+private $bootstrappingLogger;
+private static $reservedMemory;
+private static $stackedErrors = array();
+private static $stackedErrorLevels = array();
+private static $toStringException = null;
+public static function register(self $handler = null, $replace = true)
+{
+if (null === self::$reservedMemory) {
+self::$reservedMemory = str_repeat('x', 10240);
+register_shutdown_function(__CLASS__.'::handleFatalError');
+}
+if ($handlerIsNew = null === $handler) {
+$handler = new static();
+}
+if (null === $prev = set_error_handler(array($handler,'handleError'))) {
+restore_error_handler();
+set_error_handler(array($handler,'handleError'), $handler->thrownErrors | $handler->loggedErrors);
+$handler->isRoot = true;
+}
+if ($handlerIsNew && is_array($prev) && $prev[0] instanceof self) {
+$handler = $prev[0];
+$replace = false;
+}
+if ($replace || !$prev) {
+$handler->setExceptionHandler(set_exception_handler(array($handler,'handleException')));
+} else {
+restore_error_handler();
+}
+$handler->throwAt(E_ALL & $handler->thrownErrors, true);
+return $handler;
+}
+public function __construct(BufferingLogger $bootstrappingLogger = null)
+{
+if ($bootstrappingLogger) {
+$this->bootstrappingLogger = $bootstrappingLogger;
+$this->setDefaultLogger($bootstrappingLogger);
+}
+$this->traceReflector = new \ReflectionProperty('Exception','trace');
+$this->traceReflector->setAccessible(true);
+}
+public function setDefaultLogger(LoggerInterface $logger, $levels = E_ALL, $replace = false)
+{
+$loggers = array();
+if (is_array($levels)) {
+foreach ($levels as $type => $logLevel) {
+if (empty($this->loggers[$type][0]) || $replace || $this->loggers[$type][0] === $this->bootstrappingLogger) {
+$loggers[$type] = array($logger, $logLevel);
+}
+}
+} else {
+if (null === $levels) {
+$levels = E_ALL;
+}
+foreach ($this->loggers as $type => $log) {
+if (($type & $levels) && (empty($log[0]) || $replace || $log[0] === $this->bootstrappingLogger)) {
+$log[0] = $logger;
+$loggers[$type] = $log;
+}
+}
+}
+$this->setLoggers($loggers);
+}
+public function setLoggers(array $loggers)
+{
+$prevLogged = $this->loggedErrors;
+$prev = $this->loggers;
+$flush = array();
+foreach ($loggers as $type => $log) {
+if (!isset($prev[$type])) {
+throw new \InvalidArgumentException('Unknown error type: '.$type);
+}
+if (!is_array($log)) {
+$log = array($log);
+} elseif (!array_key_exists(0, $log)) {
+throw new \InvalidArgumentException('No logger provided');
+}
+if (null === $log[0]) {
+$this->loggedErrors &= ~$type;
+} elseif ($log[0] instanceof LoggerInterface) {
+$this->loggedErrors |= $type;
+} else {
+throw new \InvalidArgumentException('Invalid logger provided');
+}
+$this->loggers[$type] = $log + $prev[$type];
+if ($this->bootstrappingLogger && $prev[$type][0] === $this->bootstrappingLogger) {
+$flush[$type] = $type;
+}
+}
+$this->reRegister($prevLogged | $this->thrownErrors);
+if ($flush) {
+foreach ($this->bootstrappingLogger->cleanLogs() as $log) {
+$type = $log[2]['exception']->getSeverity();
+if (!isset($flush[$type])) {
+$this->bootstrappingLogger->log($log[0], $log[1], $log[2]);
+} elseif ($this->loggers[$type][0]) {
+$this->loggers[$type][0]->log($this->loggers[$type][1], $log[1], $log[2]);
+}
+}
+}
+return $prev;
+}
+public function setExceptionHandler(callable $handler = null)
+{
+$prev = $this->exceptionHandler;
+$this->exceptionHandler = $handler;
+return $prev;
+}
+public function throwAt($levels, $replace = false)
+{
+$prev = $this->thrownErrors;
+$this->thrownErrors = ($levels | E_RECOVERABLE_ERROR | E_USER_ERROR) & ~E_USER_DEPRECATED & ~E_DEPRECATED;
+if (!$replace) {
+$this->thrownErrors |= $prev;
+}
+$this->reRegister($prev | $this->loggedErrors);
+return $prev;
+}
+public function scopeAt($levels, $replace = false)
+{
+$prev = $this->scopedErrors;
+$this->scopedErrors = (int) $levels;
+if (!$replace) {
+$this->scopedErrors |= $prev;
+}
+return $prev;
+}
+public function traceAt($levels, $replace = false)
+{
+$prev = $this->tracedErrors;
+$this->tracedErrors = (int) $levels;
+if (!$replace) {
+$this->tracedErrors |= $prev;
+}
+return $prev;
+}
+public function screamAt($levels, $replace = false)
+{
+$prev = $this->screamedErrors;
+$this->screamedErrors = (int) $levels;
+if (!$replace) {
+$this->screamedErrors |= $prev;
+}
+return $prev;
+}
+private function reRegister($prev)
+{
+if ($prev !== $this->thrownErrors | $this->loggedErrors) {
+$handler = set_error_handler('var_dump');
+$handler = is_array($handler) ? $handler[0] : null;
+restore_error_handler();
+if ($handler === $this) {
+restore_error_handler();
+if ($this->isRoot) {
+set_error_handler(array($this,'handleError'), $this->thrownErrors | $this->loggedErrors);
+} else {
+set_error_handler(array($this,'handleError'));
+}
+}
+}
+}
+public function handleError($type, $message, $file, $line, array $context, array $backtrace = null)
+{
+$level = error_reporting() | E_RECOVERABLE_ERROR | E_USER_ERROR | E_DEPRECATED | E_USER_DEPRECATED;
+$log = $this->loggedErrors & $type;
+$throw = $this->thrownErrors & $type & $level;
+$type &= $level | $this->screamedErrors;
+if (!$type || (!$log && !$throw)) {
+return $type && $log;
+}
+if (isset($context['GLOBALS']) && ($this->scopedErrors & $type)) {
+unset($context['GLOBALS']);
+}
+if (null !== $backtrace && $type & E_ERROR) {
+$this->handleFatalError(compact('type','message','file','line','backtrace'));
+return true;
+}
+$logMessage = $this->levels[$type].': '.$message;
+if (null !== self::$toStringException) {
+$errorAsException = self::$toStringException;
+self::$toStringException = null;
+} elseif (!$throw && !($type & $level)) {
+$errorAsException = new SilencedErrorContext($type, $file, $line);
+} else {
+if ($this->scopedErrors & $type) {
+$errorAsException = new ContextErrorException($logMessage, 0, $type, $file, $line, $context);
+} else {
+$errorAsException = new \ErrorException($logMessage, 0, $type, $file, $line);
+}
+if ($throw || $this->tracedErrors & $type) {
+$backtrace = $backtrace ?: $errorAsException->getTrace();
+$lightTrace = $backtrace;
+for ($i = 0; isset($backtrace[$i]); ++$i) {
+if (isset($backtrace[$i]['file'], $backtrace[$i]['line']) && $backtrace[$i]['line'] === $line && $backtrace[$i]['file'] === $file) {
+$lightTrace = array_slice($lightTrace, 1 + $i);
+break;
+}
+}
+if (!($throw || $this->scopedErrors & $type)) {
+for ($i = 0; isset($lightTrace[$i]); ++$i) {
+unset($lightTrace[$i]['args']);
+}
+}
+$this->traceReflector->setValue($errorAsException, $lightTrace);
+} else {
+$this->traceReflector->setValue($errorAsException, array());
+}
+}
+if ($throw) {
+if (E_USER_ERROR & $type) {
+for ($i = 1; isset($backtrace[$i]); ++$i) {
+if (isset($backtrace[$i]['function'], $backtrace[$i]['type'], $backtrace[$i - 1]['function'])
+&&'__toString'=== $backtrace[$i]['function']
+&&'->'=== $backtrace[$i]['type']
+&& !isset($backtrace[$i - 1]['class'])
+&& ('trigger_error'=== $backtrace[$i - 1]['function'] ||'user_error'=== $backtrace[$i - 1]['function'])
+) {
+foreach ($context as $e) {
+if (($e instanceof \Exception || $e instanceof \Throwable) && $e->__toString() === $message) {
+if (1 === $i) {
+$errorAsException = $e;
+break;
+}
+self::$toStringException = $e;
+return true;
+}
+}
+if (1 < $i) {
+$this->handleException($errorAsException);
+return false;
+}
+}
+}
+}
+throw $errorAsException;
+}
+if ($this->isRecursive) {
+$log = 0;
+} elseif (self::$stackedErrorLevels) {
+self::$stackedErrors[] = array(
+$this->loggers[$type][0],
+($type & $level) ? $this->loggers[$type][1] : LogLevel::DEBUG,
+$logMessage,
+array('exception'=> $errorAsException),
+);
+} else {
+try {
+$this->isRecursive = true;
+$level = ($type & $level) ? $this->loggers[$type][1] : LogLevel::DEBUG;
+$this->loggers[$type][0]->log($level, $logMessage, array('exception'=> $errorAsException));
+} finally {
+$this->isRecursive = false;
+}
+}
+return $type && $log;
+}
+public function handleException($exception, array $error = null)
+{
+if (!$exception instanceof \Exception) {
+$exception = new FatalThrowableError($exception);
+}
+$type = $exception instanceof FatalErrorException ? $exception->getSeverity() : E_ERROR;
+if (($this->loggedErrors & $type) || $exception instanceof FatalThrowableError) {
+if ($exception instanceof FatalErrorException) {
+if ($exception instanceof FatalThrowableError) {
+$error = array('type'=> $type,'message'=> $message = $exception->getMessage(),'file'=> $exception->getFile(),'line'=> $exception->getLine(),
+);
+} else {
+$message ='Fatal '.$exception->getMessage();
+}
+} elseif ($exception instanceof \ErrorException) {
+$message ='Uncaught '.$exception->getMessage();
+if ($exception instanceof ContextErrorException) {
+$e['context'] = $exception->getContext();
+}
+} else {
+$message ='Uncaught Exception: '.$exception->getMessage();
+}
+}
+if ($this->loggedErrors & $type) {
+$this->loggers[$type][0]->log($this->loggers[$type][1], $message, array('exception'=> $exception));
+}
+if ($exception instanceof FatalErrorException && !$exception instanceof OutOfMemoryException && $error) {
+foreach ($this->getFatalErrorHandlers() as $handler) {
+if ($e = $handler->handleError($error, $exception)) {
+$exception = $e;
+break;
+}
+}
+}
+if (empty($this->exceptionHandler)) {
+throw $exception; }
+try {
+call_user_func($this->exceptionHandler, $exception);
+} catch (\Exception $handlerException) {
+} catch (\Throwable $handlerException) {
+}
+if (isset($handlerException)) {
+$this->exceptionHandler = null;
+$this->handleException($handlerException);
+}
+}
+public static function handleFatalError(array $error = null)
+{
+if (null === self::$reservedMemory) {
+return;
+}
+self::$reservedMemory = null;
+$handler = set_error_handler('var_dump');
+$handler = is_array($handler) ? $handler[0] : null;
+restore_error_handler();
+if (!$handler instanceof self) {
+return;
+}
+if (null === $error) {
+$error = error_get_last();
+}
+try {
+while (self::$stackedErrorLevels) {
+static::unstackErrors();
+}
+} catch (\Exception $exception) {
+} catch (\Throwable $exception) {
+}
+if ($error && $error['type'] &= E_PARSE | E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR) {
+$handler->throwAt(0, true);
+$trace = isset($error['backtrace']) ? $error['backtrace'] : null;
+if (0 === strpos($error['message'],'Allowed memory') || 0 === strpos($error['message'],'Out of memory')) {
+$exception = new OutOfMemoryException($handler->levels[$error['type']].': '.$error['message'], 0, $error['type'], $error['file'], $error['line'], 2, false, $trace);
+} else {
+$exception = new FatalErrorException($handler->levels[$error['type']].': '.$error['message'], 0, $error['type'], $error['file'], $error['line'], 2, true, $trace);
+}
+} elseif (!isset($exception)) {
+return;
+}
+try {
+$handler->handleException($exception, $error);
+} catch (FatalErrorException $e) {
+}
+}
+public static function stackErrors()
+{
+self::$stackedErrorLevels[] = error_reporting(error_reporting() | E_PARSE | E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR);
+}
+public static function unstackErrors()
+{
+$level = array_pop(self::$stackedErrorLevels);
+if (null !== $level) {
+$errorReportingLevel = error_reporting($level);
+if ($errorReportingLevel !== ($level | E_PARSE | E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR)) {
+error_reporting($errorReportingLevel);
+}
+}
+if (empty(self::$stackedErrorLevels)) {
+$errors = self::$stackedErrors;
+self::$stackedErrors = array();
+foreach ($errors as $error) {
+$error[0]->log($error[1], $error[2], $error[3]);
+}
+}
+}
+protected function getFatalErrorHandlers()
+{
+return array(
+new UndefinedFunctionFatalErrorHandler(),
+new UndefinedMethodFatalErrorHandler(),
+new ClassNotFoundFatalErrorHandler(),
+);
+}
+}
+}
 namespace Symfony\Component\DependencyInjection
 {
 interface ContainerAwareInterface
@@ -5722,10 +6146,10 @@ namespace
 {
 class Twig_Environment
 {
-const VERSION ='1.29.0';
-const VERSION_ID = 12900;
+const VERSION ='1.30.0';
+const VERSION_ID = 13000;
 const MAJOR_VERSION = 1;
-const MINOR_VERSION = 29;
+const MINOR_VERSION = 30;
 const RELEASE_VERSION = 0;
 const EXTRA_VERSION ='';
 protected $charset;
@@ -6125,7 +6549,7 @@ if ($class !== get_class($this->extensions[$class])) {
 }
 return true;
 }
-return isset($this->extensionsByClass[ltrim($class,'\\')]);
+return isset($this->extensionsByClass[$class]);
 }
 public function addRuntimeLoader(Twig_RuntimeLoaderInterface $loader)
 {
@@ -7598,7 +8022,7 @@ throw new Twig_Error_Runtime(sprintf('An exception has been thrown during the re
 } elseif (false !== $parent = $this->getParent($context)) {
 $parent->displayBlock($name, $context, array_merge($this->blocks, $blocks), false);
 } else {
-@trigger_error(sprintf('Silent display of undefined block "%s" in template "%s" is deprecated since version 1.29 and will throw an exception in 2.0.', $name, $this->getTemplateName()), E_USER_DEPRECATED);
+@trigger_error(sprintf('Silent display of undefined block "%s" in template "%s" is deprecated since version 1.29 and will throw an exception in 2.0. Use the "block(\'%s\') is defined" expression to test for block existence.', $name, $this->getTemplateName(), $name), E_USER_DEPRECATED);
 }
 }
 public function renderParentBlock($name, array $context, array $blocks = array())
@@ -7865,7 +8289,7 @@ throw $e;
 }
 if ($object instanceof Twig_TemplateInterface) {
 $self = $object->getTemplateName() === $this->getTemplateName();
-$message = sprintf('Calling "%s" on template "%s" from template "%s" is deprecated since version 1.28 and won\'t be supported anymore in 2.0.', $method, $object->getTemplateName(), $this->getTemplateName());
+$message = sprintf('Calling "%s" on template "%s" from template "%s" is deprecated since version 1.28 and won\'t be supported anymore in 2.0.', $item, $object->getTemplateName(), $this->getTemplateName());
 if ('renderBlock'=== $method ||'displayBlock'=== $method) {
 $message .= sprintf(' Use block("%s"%s) instead).', $arguments[0], $self ?'':', template');
 } elseif ('hasBlock'=== $method) {
@@ -8652,6 +9076,21 @@ throw new \BadMethodCallException('Call to undefined method '. get_class($this) 
 }
 }
 }
+namespace Psr\Log
+{
+interface LoggerInterface
+{
+public function emergency($message, array $context = array());
+public function alert($message, array $context = array());
+public function critical($message, array $context = array());
+public function error($message, array $context = array());
+public function warning($message, array $context = array());
+public function notice($message, array $context = array());
+public function info($message, array $context = array());
+public function debug($message, array $context = array());
+public function log($level, $message, array $context = array());
+}
+}
 namespace Monolog
 {
 use Monolog\Handler\HandlerInterface;
@@ -8970,6 +9409,342 @@ $this->actionLevel = Logger::toMonologLevel($actionLevel);
 public function isHandlerActivated(array $record)
 {
 return $record['level'] >= $this->actionLevel;
+}
+}
+}
+namespace Assetic
+{
+interface ValueSupplierInterface
+{
+public function getValues();
+}
+}
+namespace Symfony\Bundle\AsseticBundle
+{
+use Assetic\ValueSupplierInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+class DefaultValueSupplier implements ValueSupplierInterface
+{
+protected $container;
+public function __construct(ContainerInterface $container)
+{
+$this->container = $container;
+}
+public function getValues()
+{
+$request = $this->getCurrentRequest();
+if (!$request) {
+return array();
+}
+return array('locale'=> $request->getLocale(),'env'=> $this->container->getParameter('kernel.environment'),
+);
+}
+private function getCurrentRequest()
+{
+$request = null;
+$requestStack = $this->container->get('request_stack', ContainerInterface::NULL_ON_INVALID_REFERENCE);
+if ($requestStack) {
+$request = $requestStack->getCurrentRequest();
+} elseif ($this->container->isScopeActive('request')) {
+$request = $this->container->get('request');
+}
+return $request;
+}
+}
+}
+namespace Assetic\Factory
+{
+use Assetic\Asset\AssetCollection;
+use Assetic\Asset\AssetCollectionInterface;
+use Assetic\Asset\AssetInterface;
+use Assetic\Asset\AssetReference;
+use Assetic\Asset\FileAsset;
+use Assetic\Asset\GlobAsset;
+use Assetic\Asset\HttpAsset;
+use Assetic\AssetManager;
+use Assetic\Factory\Worker\WorkerInterface;
+use Assetic\Filter\DependencyExtractorInterface;
+use Assetic\FilterManager;
+class AssetFactory
+{
+private $root;
+private $debug;
+private $output;
+private $workers;
+private $am;
+private $fm;
+public function __construct($root, $debug = false)
+{
+$this->root = rtrim($root,'/');
+$this->debug = $debug;
+$this->output ='assetic/*';
+$this->workers = array();
+}
+public function setDebug($debug)
+{
+$this->debug = $debug;
+}
+public function isDebug()
+{
+return $this->debug;
+}
+public function setDefaultOutput($output)
+{
+$this->output = $output;
+}
+public function addWorker(WorkerInterface $worker)
+{
+$this->workers[] = $worker;
+}
+public function getAssetManager()
+{
+return $this->am;
+}
+public function setAssetManager(AssetManager $am)
+{
+$this->am = $am;
+}
+public function getFilterManager()
+{
+return $this->fm;
+}
+public function setFilterManager(FilterManager $fm)
+{
+$this->fm = $fm;
+}
+public function createAsset($inputs = array(), $filters = array(), array $options = array())
+{
+if (!is_array($inputs)) {
+$inputs = array($inputs);
+}
+if (!is_array($filters)) {
+$filters = array($filters);
+}
+if (!isset($options['output'])) {
+$options['output'] = $this->output;
+}
+if (!isset($options['vars'])) {
+$options['vars'] = array();
+}
+if (!isset($options['debug'])) {
+$options['debug'] = $this->debug;
+}
+if (!isset($options['root'])) {
+$options['root'] = array($this->root);
+} else {
+if (!is_array($options['root'])) {
+$options['root'] = array($options['root']);
+}
+$options['root'][] = $this->root;
+}
+if (!isset($options['name'])) {
+$options['name'] = $this->generateAssetName($inputs, $filters, $options);
+}
+$asset = $this->createAssetCollection(array(), $options);
+$extensions = array();
+foreach ($inputs as $input) {
+if (is_array($input)) {
+$asset->add(call_user_func_array(array($this,'createAsset'), $input));
+} else {
+$asset->add($this->parseInput($input, $options));
+$extensions[pathinfo($input, PATHINFO_EXTENSION)] = true;
+}
+}
+foreach ($filters as $filter) {
+if ('?'!= $filter[0]) {
+$asset->ensureFilter($this->getFilter($filter));
+} elseif (!$options['debug']) {
+$asset->ensureFilter($this->getFilter(substr($filter, 1)));
+}
+}
+if (!empty($options['vars'])) {
+$toAdd = array();
+foreach ($options['vars'] as $var) {
+if (false !== strpos($options['output'],'{'.$var.'}')) {
+continue;
+}
+$toAdd[] ='{'.$var.'}';
+}
+if ($toAdd) {
+$options['output'] = str_replace('*','*.'.implode('.', $toAdd), $options['output']);
+}
+}
+if (1 == count($extensions) && !pathinfo($options['output'], PATHINFO_EXTENSION) && $extension = key($extensions)) {
+$options['output'] .='.'.$extension;
+}
+$asset->setTargetPath(str_replace('*', $options['name'], $options['output']));
+return $this->applyWorkers($asset);
+}
+public function generateAssetName($inputs, $filters, $options = array())
+{
+foreach (array_diff(array_keys($options), array('output','debug','root')) as $key) {
+unset($options[$key]);
+}
+ksort($options);
+return substr(sha1(serialize($inputs).serialize($filters).serialize($options)), 0, 7);
+}
+public function getLastModified(AssetInterface $asset)
+{
+$mtime = 0;
+foreach ($asset instanceof AssetCollectionInterface ? $asset : array($asset) as $leaf) {
+$mtime = max($mtime, $leaf->getLastModified());
+if (!$filters = $leaf->getFilters()) {
+continue;
+}
+$prevFilters = array();
+foreach ($filters as $filter) {
+$prevFilters[] = $filter;
+if (!$filter instanceof DependencyExtractorInterface) {
+continue;
+}
+$clone = clone $leaf;
+$clone->clearFilters();
+foreach (array_slice($prevFilters, 0, -1) as $prevFilter) {
+$clone->ensureFilter($prevFilter);
+}
+$clone->load();
+foreach ($filter->getChildren($this, $clone->getContent(), $clone->getSourceDirectory()) as $child) {
+$mtime = max($mtime, $this->getLastModified($child));
+}
+}
+}
+return $mtime;
+}
+protected function parseInput($input, array $options = array())
+{
+if ('@'== $input[0]) {
+return $this->createAssetReference(substr($input, 1));
+}
+if (false !== strpos($input,'://') || 0 === strpos($input,'//')) {
+return $this->createHttpAsset($input, $options['vars']);
+}
+if (self::isAbsolutePath($input)) {
+if ($root = self::findRootDir($input, $options['root'])) {
+$path = ltrim(substr($input, strlen($root)),'/');
+} else {
+$path = null;
+}
+} else {
+$root = $this->root;
+$path = $input;
+$input = $this->root.'/'.$path;
+}
+if (false !== strpos($input,'*')) {
+return $this->createGlobAsset($input, $root, $options['vars']);
+}
+return $this->createFileAsset($input, $root, $path, $options['vars']);
+}
+protected function createAssetCollection(array $assets = array(), array $options = array())
+{
+return new AssetCollection($assets, array(), null, isset($options['vars']) ? $options['vars'] : array());
+}
+protected function createAssetReference($name)
+{
+if (!$this->am) {
+throw new \LogicException('There is no asset manager.');
+}
+return new AssetReference($this->am, $name);
+}
+protected function createHttpAsset($sourceUrl, $vars)
+{
+return new HttpAsset($sourceUrl, array(), false, $vars);
+}
+protected function createGlobAsset($glob, $root = null, $vars)
+{
+return new GlobAsset($glob, array(), $root, $vars);
+}
+protected function createFileAsset($source, $root = null, $path = null, $vars)
+{
+return new FileAsset($source, array(), $root, $path, $vars);
+}
+protected function getFilter($name)
+{
+if (!$this->fm) {
+throw new \LogicException('There is no filter manager.');
+}
+return $this->fm->get($name);
+}
+private function applyWorkers(AssetCollectionInterface $asset)
+{
+foreach ($asset as $leaf) {
+foreach ($this->workers as $worker) {
+$retval = $worker->process($leaf, $this);
+if ($retval instanceof AssetInterface && $leaf !== $retval) {
+$asset->replaceLeaf($leaf, $retval);
+}
+}
+}
+foreach ($this->workers as $worker) {
+$retval = $worker->process($asset, $this);
+if ($retval instanceof AssetInterface) {
+$asset = $retval;
+}
+}
+return $asset instanceof AssetCollectionInterface ? $asset : $this->createAssetCollection(array($asset));
+}
+private static function isAbsolutePath($path)
+{
+return'/'== $path[0] ||'\\'== $path[0] || (3 < strlen($path) && ctype_alpha($path[0]) && $path[1] ==':'&& ('\\'== $path[2] ||'/'== $path[2]));
+}
+private static function findRootDir($path, array $roots)
+{
+foreach ($roots as $root) {
+if (0 === strpos($path, $root)) {
+return $root;
+}
+}
+}
+}
+}
+namespace Symfony\Bundle\AsseticBundle\Factory
+{
+use Assetic\Factory\AssetFactory as BaseAssetFactory;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
+class AssetFactory extends BaseAssetFactory
+{
+private $kernel;
+private $container;
+private $parameterBag;
+public function __construct(KernelInterface $kernel, ContainerInterface $container, ParameterBagInterface $parameterBag, $baseDir, $debug = false)
+{
+$this->kernel = $kernel;
+$this->container = $container;
+$this->parameterBag = $parameterBag;
+parent::__construct($baseDir, $debug);
+}
+protected function parseInput($input, array $options = array())
+{
+$input = $this->parameterBag->resolveValue($input);
+if ('@'== $input[0] && false !== strpos($input,'/')) {
+$bundle = substr($input, 1);
+if (false !== $pos = strpos($bundle,'/')) {
+$bundle = substr($bundle, 0, $pos);
+}
+$options['root'] = array($this->kernel->getBundle($bundle)->getPath());
+if (false !== $pos = strpos($input,'*')) {
+list($before, $after) = explode('*', $input, 2);
+$input = $this->kernel->locateResource($before).'*'.$after;
+} else {
+$input = $this->kernel->locateResource($input);
+}
+}
+return parent::parseInput($input, $options);
+}
+protected function createAssetReference($name)
+{
+if (!$this->getAssetManager()) {
+$this->setAssetManager($this->container->get('assetic.asset_manager'));
+}
+return parent::createAssetReference($name);
+}
+protected function getFilter($name)
+{
+if (!$this->getFilterManager()) {
+$this->setFilterManager($this->container->get('assetic.filter_manager'));
+}
+return parent::getFilter($name);
 }
 }
 }

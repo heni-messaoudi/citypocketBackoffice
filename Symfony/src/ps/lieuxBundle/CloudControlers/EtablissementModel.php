@@ -3,9 +3,9 @@
 namespace ps\lieuxBundle\CloudControlers;
 
 use Google\Cloud\Datastore\DatastoreClient;
-use libphonenumber\PhoneNumberUtil;
 use ps\lieuxBundle\EntitysControlers\lieu\Etablissement;
-use libphonenumber\PhoneNumber;
+use ps\lieuxBundle\EntitysControlers\user\User;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 class EtablissementModel
 {
@@ -179,5 +179,22 @@ class EtablissementModel
         $this->updateEtab($etab, $etablissement, $key);
     }
 
+    public function getUser($username, $request){
+        $key = $this->datastore->key('Inscrit', $username);
+        $entity = $this->datastore->lookup($key);
+        if ($entity) {
+            $user = new User();
+            $usrEntity = $entity->get();
+            $usrEntity['email'] = $entity->key()->pathEndIdentifier();
+            $user->setEmail($usrEntity['email']);
+            $user->setNom($usrEntity['nom']);
+            $user->setMdp($usrEntity['mdp']);
+            $user->setIsComercial($entity['isComercial']);
+            return $user;
+        }
+        throw new UsernameNotFoundException(
+            sprintf('Username "%s" does not exist.', $username)
+        );
+    }
 
 }
